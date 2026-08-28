@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "brand": "Noor Clinic",
+    "tagline": "Aesthetic & Skincare",
+    "categories": "Categories",
+    "services": "Services",
+    "team": "Our Team",
+    "book": "Book a visit",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "switchTo": "العربية"
+  },
+  "hero": {
+    "badge": "Now accepting new patients",
+    "titleLead": "Considered care for",
+    "titleAccent": "skin and confidence.",
+    "body": "Browse our treatments, compare brands and pricing, and book with the specialist that suits you — all in one place.",
+    "exploreCta": "Explore treatments",
+    "teamCta": "Meet the team",
+    "statTreatments": "Treatments",
+    "statCategories": "Categories",
+    "statSpecialists": "Specialists"
+  },
+  "categories": {
+    "eyebrow": "Categories",
+    "title": "Where would you like to start?",
+    "description": "Every treatment we offer falls into one of these areas of care.",
+    "count": "{count, plural, =0 {No treatments} one {# treatment} other {# treatments}}"
+  },
+  "services": {
+    "eyebrow": "Treatments",
+    "title": "Treatments and pricing",
+    "description": "Prices are shown per session in USD. Several treatments offer more than one brand at different price points.",
+    "rateLabel": "Today's rate:",
+    "rateValue": "1 USD = {rate} SYP",
+    "all": "All treatments",
+    "minutes": "{count} min",
+    "options": "{count, plural, one {# option} other {# options}}",
+    "onRequest": "On request",
+    "askReception": "Ask reception",
+    "empty": "No treatments in this category yet."
+  },
+  "doctors": {
+    "eyebrow": "Our team",
+    "title": "Specialists who will care for you",
+    "description": "Every procedure is performed by a licensed practitioner in their field."
+  },
+  "booking": {
+    "title": "Ready to book your visit?",
+    "description": "Call us and our reception team will confirm your appointment and answer any questions about pricing.",
+    "phone": "+963 11 234 5678"
+  },
+  "footer": {
+    "about": "Aesthetic and skincare treatments delivered by licensed specialists.",
+    "contact": "Contact",
+    "hours": "Hours",
+    "weekdays": "Sat – Thu",
+    "weekdayHours": "10:00 – 19:00",
+    "friday": "Friday",
+    "closed": "Closed",
+    "email": "hello@noorclinic.sy",
+    "address": "Mazzeh, Damascus",
+    "rights": "© {year} Noor Clinic. Demo interface for development."
+  },
+  "error": {
+    "title": "Backend unavailable",
+    "body": "Could not reach the clinic API. Make sure the backend is running on http://localhost:5000."
+  }
+}

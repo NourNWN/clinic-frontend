@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------
+   Design tokens — calm clinical teal with a warm sand accent.
+   Light values live on :root; only the tokens change in dark mode.
+   --------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg: #f6f9f9;
+  --surface: #ffffff;
+  --surface-2: #eef4f4;
+  --border: #dde7e6;
+  --border-strong: #c6d6d4;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --fg: #0f1f1e;
+  --muted: #5b6f6d;
+  --faint: #849997;
+
+  --brand: #0f766e;
+  --brand-strong: #115e59;
+  --brand-soft: #d6f2ee;
+  --brand-fg: #ffffff;
+
+  --accent: #a15c12;
+  --accent-soft: #fbeedd;
+
+  --ring: #14b8a6;
+  --shadow-sm: 0 1px 2px rgb(15 31 30 / 0.06), 0 1px 3px rgb(15 31 30 / 0.05);
+  --shadow-md: 0 4px 12px rgb(15 31 30 / 0.07), 0 2px 4px rgb(15 31 30 / 0.04);
+  --shadow-lg: 0 12px 32px rgb(15 31 30 / 0.10), 0 4px 8px rgb(15 31 30 / 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #08110f;
+    --surface: #0f1c1a;
+    --surface-2: #162523;
+    --border: #1f302e;
+    --border-strong: #2b403d;
+
+    --fg: #e8f0ef;
+    --muted: #9bb0ad;
+    --faint: #718784;
+
+    --brand: #2dd4bf;
+    --brand-strong: #5eead4;
+    --brand-soft: #113330;
+    --brand-fg: #04201d;
+
+    --accent: #e8b072;
+    --accent-soft: #2c2013;
+
+    --ring: #2dd4bf;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-fg: var(--brand-fg);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: var(--font-geist-sans);
+  --font-arabic: var(--font-noto-arabic);
+  --font-mono: var(--font-geist-mono);
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* In Arabic the whole document switches face and gains a little line-height,
+   since Arabic glyphs sit taller than Latin at the same font-size. */
+:lang(ar) {
+  font-family: var(--font-noto-arabic), var(--font-geist-sans), sans-serif;
+  line-height: 1.8;
+}
+
+/* Small caps-style section labels. Uppercasing and wide tracking are Latin
+   typographic conventions — Arabic has no letter case, and tracking breaks
+   the cursive joins — so Arabic gets a plain, slightly larger label instead. */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+:lang(ar) .eyebrow {
+  font-size: 0.8125rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Keep headline tracking from tightening Arabic letterforms. */
+:lang(ar) .tracking-tight {
+  letter-spacing: 0;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
