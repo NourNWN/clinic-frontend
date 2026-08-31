@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import {
   getCategories,
+  getConcerns,
   getDoctors,
   getExchangeRate,
   getServices,
@@ -39,14 +40,16 @@ export default async function Home() {
   const t = await getTranslations();
 
   let categories = [];
+  let concerns = [];
   let services = [];
   let doctors = [];
   let rate = null;
   let failed = false;
 
   try {
-    [categories, services, doctors] = await Promise.all([
+    [categories, concerns, services, doctors] = await Promise.all([
       getCategories(),
+      getConcerns(),
       getServices(),
       getDoctors(),
     ]);
@@ -198,7 +201,12 @@ export default async function Home() {
           )}
 
           <div className="mt-8">
-            <ServicesExplorer services={services} categories={categories} />
+            <ServicesExplorer
+              services={services}
+              categories={categories}
+              concerns={concerns}
+              doctors={doctors}
+            />
           </div>
         </div>
       </section>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Icon } from "./Icon";
 
@@ -17,9 +18,13 @@ export async function Footer() {
         <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
             <div className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-brand-fg">
-                <Icon name="sparkles" size={18} />
-              </span>
+              <Image
+                src="/logo-hd.png"
+                alt={tNav("logoAlt")}
+                width={4392}
+                height={2040}
+                className="h-9 w-auto shrink-0"
+              />
               <span className="text-[15px] font-semibold tracking-tight text-fg">
                 {tNav("brand")}
               </span>

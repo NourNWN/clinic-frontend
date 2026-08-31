@@ -80,6 +80,7 @@ const paths = {
     </>
   ),
   check: <path d="M20 6 9 17l-5-5" />,
+  chevronDown: <path d="m6 9 6 6 6-6" />,
   arrow: (
     <>
       <path d="M5 12h14" />

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Icon } from "./Icon";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { useBooking } from "./BookingProvider";
 
 const links = [
   { href: "#categories", key: "categories" },
@@ -14,14 +16,20 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
+  const { openBooking } = useBooking();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-brand-fg shadow-card">
-            <Icon name="sparkles" size={18} />
-          </span>
+          <Image
+            src="/logo-hd.png"
+            alt={t("logoAlt")}
+            width={4392}
+            height={2040}
+            priority
+            className="h-10 w-auto shrink-0"
+          />
           <span className="flex flex-col leading-none">
             <span className="text-[15px] font-semibold tracking-tight text-fg">
               {t("brand")}
@@ -43,12 +51,13 @@ export function Nav() {
             </a>
           ))}
           <LocaleSwitcher className="ms-2" />
-          <a
-            href="#book"
+          <button
+            type="button"
+            onClick={() => openBooking()}
             className="ms-2 inline-flex items-center gap-1.5 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-brand-fg shadow-card transition-all hover:bg-brand-strong hover:shadow-card-hover"
           >
             {t("book")}
-          </a>
+          </button>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -78,13 +87,16 @@ export function Nav() {
                 {t(link.key)}
               </a>
             ))}
-            <a
-              href="#book"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openBooking();
+              }}
               className="mt-1 rounded-lg bg-brand px-3 py-2.5 text-center text-sm font-semibold text-brand-fg"
             >
               {t("book")}
-            </a>
+            </button>
           </div>
         </div>
       )}

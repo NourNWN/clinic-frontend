@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brand": "Noor Clinic",
+    "brand": "Hiam Clinic",
     "tagline": "Aesthetic & Skincare",
     "categories": "Categories",
     "services": "Services",
@@ -9,7 +9,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
-    "switchTo": "العربية"
+    "switchTo": "العربية",
+    "logoAlt": "Hiam Clinic logo"
   },
   "hero": {
     "badge": "Now accepting new patients",
@@ -34,12 +35,16 @@
     "description": "Prices are shown per session in USD. Several treatments offer more than one brand at different price points.",
     "rateLabel": "Today's rate:",
     "rateValue": "1 USD = {rate} SYP",
+    "byCategory": "Browse by category",
+    "byConcern": "What's bothering you?",
     "all": "All treatments",
+    "allConcerns": "All concerns",
     "minutes": "{count} min",
     "options": "{count, plural, one {# option} other {# options}}",
     "onRequest": "On request",
     "askReception": "Ask reception",
-    "empty": "No treatments in this category yet."
+    "empty": "No treatments in this category yet.",
+    "bookCta": "Book now"
   },
   "doctors": {
     "eyebrow": "Our team",
@@ -51,6 +56,35 @@
     "description": "Call us and our reception team will confirm your appointment and answer any questions about pricing.",
     "phone": "+963 11 234 5678"
   },
+  "bookingForm": {
+    "title": "Book your visit",
+    "close": "Close",
+    "serviceLabel": "Treatment",
+    "selectService": "Select a treatment",
+    "variantLabel": "Brand",
+    "offerPriceSyp": "{price} SYP",
+    "doctorLabel": "Specialist",
+    "noDoctors": "No specialists are currently available for this treatment.",
+    "nameLabel": "Full name",
+    "phoneLabel": "Phone number",
+    "countryLabel": "Country code",
+    "countrySearchPlaceholder": "Search countries…",
+    "dayLabel": "Preferred day",
+    "submit": "Confirm booking",
+    "submitting": "Booking…",
+    "loadingService": "Loading treatment details…",
+    "loadError": "Couldn't load this treatment. Please try again.",
+    "unavailable": "Booking is temporarily unavailable — please call us to schedule your visit.",
+    "genericError": "Something went wrong. Please try again.",
+    "successClose": "Done",
+    "validation": {
+      "name": "Please enter your name.",
+      "phone": "Please enter a valid phone number for {country}.",
+      "variant": "Please select a brand.",
+      "doctor": "Please select a specialist.",
+      "day": "Please choose a valid day (today or later)."
+    }
+  },
   "footer": {
     "about": "Aesthetic and skincare treatments delivered by licensed specialists.",
     "contact": "Contact",
@@ -59,12 +93,23 @@
     "weekdayHours": "10:00 – 19:00",
     "friday": "Friday",
     "closed": "Closed",
-    "email": "hello@noorclinic.sy",
+    "email": "hello@hiamclinic.sy",
     "address": "Mazzeh, Damascus",
-    "rights": "© {year} Noor Clinic. Demo interface for development."
+    "rights": "© {year} Hiam Clinic. Demo interface for development."
   },
   "error": {
     "title": "Backend unavailable",
     "body": "Could not reach the clinic API. Make sure the backend is running on http://localhost:5000."
+  },
+  "serviceDetails": {
+    "close": "Close",
+    "loading": "Loading treatment details…",
+    "loadError": "Couldn't load this treatment. Please try again.",
+    "variantsTitle": "Available brands",
+    "offerValidUntil": "Offer valid until {date}",
+    "priceUsd": "{price} USD",
+    "syNote": "SYP price is calculated at the current exchange rate.",
+    "doctorsTitle": "Specialists who provide this treatment",
+    "noDoctors": "No specialists are currently available for this treatment."
   }
 }

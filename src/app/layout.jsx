@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { BookingProvider } from "@/components/BookingProvider";
 import { localeDir } from "@/i18n/config";
 
 const geistSans = Geist({
@@ -28,6 +29,9 @@ export async function generateMetadata() {
   return {
     title: `${t("brand")} — ${t("tagline")}`,
     description: t("tagline"),
+    icons: {
+      icon: "/logo-hd.png",
+    },
   };
 }
 
@@ -44,9 +48,11 @@ export default async function RootLayout({ children }) {
     >
       <body className="flex min-h-full flex-col bg-bg text-fg">
         <NextIntlClientProvider>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <BookingProvider>
+            <Nav />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </BookingProvider>
         </NextIntlClientProvider>
       </body>
     </html>
