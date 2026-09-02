@@ -111,5 +111,131 @@
     "syNote": "يتم احتساب السعر بالليرة السورية وفق سعر الصرف الحالي.",
     "doctorsTitle": "الأخصائيون المتوفرون لهذا العلاج",
     "noDoctors": "لا يوجد أخصائيون متاحون لهذا العلاج حالياً."
+  },
+  "admin": {
+    "login": {
+      "title": "تسجيل دخول الإدارة",
+      "subtitle": "لطاقم العمل فقط.",
+      "usernameLabel": "اسم المستخدم",
+      "passwordLabel": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "submitting": "جارٍ تسجيل الدخول…",
+      "genericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى."
+    },
+    "dashboard": {
+      "title": "لوحة التحكم",
+      "welcome": "مرحباً، {name}",
+      "subtitle": "لوحة التحكم قيد الإنشاء — سيتم إضافة المزيد قريباً.",
+      "logout": "تسجيل الخروج",
+      "appointmentsLink": "المواعيد",
+      "appointmentsLinkDescription": "مراجعة الحجوزات وتأكيدها ومتابعتها.",
+      "servicesLink": "العلاجات",
+      "servicesLinkDescription": "إدارة العلاجات والماركات والأسعار."
+    },
+    "appointments": {
+      "title": "المواعيد",
+      "tabs": {
+        "all": "كل المواعيد",
+        "calls": "اتصالات الغد",
+        "followup": "رسائل المتابعة"
+      },
+      "table": {
+        "patient": "المريضة",
+        "service": "العلاج",
+        "doctor": "الأخصائي",
+        "day": "اليوم",
+        "status": "الحالة",
+        "price": "السعر",
+        "priceValue": "{price} ليرة سورية",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "pending": "قيد الانتظار",
+        "confirmed": "مؤكد",
+        "rescheduled": "معاد جدولته",
+        "cancelled": "ملغى",
+        "completed": "مكتمل",
+        "no_show": "لم يحضر"
+      },
+      "actions": {
+        "confirm": "تأكيد",
+        "cancel": "إلغاء",
+        "reschedule": "إعادة جدولة",
+        "rescheduleSubmit": "حفظ",
+        "rescheduleCancel": "إلغاء",
+        "markSent": "تحديد كمُرسلة"
+      },
+      "empty": {
+        "all": "لا توجد مواعيد بعد.",
+        "calls": "لا توجد اتصالات غداً 🎉",
+        "followup": "لا توجد رسائل متابعة لإرسالها."
+      },
+      "loading": "جارٍ تحميل المواعيد…",
+      "loadError": "تعذّر تحميل المواعيد. حاولي مرة أخرى.",
+      "retry": "إعادة المحاولة",
+      "dismiss": "إغلاق",
+      "actionGenericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى."
+    },
+    "services": {
+      "title": "العلاجات",
+      "newService": "علاج جديد",
+      "edit": "تعديل",
+      "table": {
+        "name": "العلاج",
+        "category": "القسم",
+        "priceRange": "نطاق السعر",
+        "brands": "الماركات",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "available": "متاح",
+        "hidden": "مخفي"
+      },
+      "minutes": "{count} دقيقة",
+      "brandsCount": "{available} من {total} متوفرة",
+      "noBrands": "لا توجد ماركات بعد",
+      "empty": "لا توجد علاجات بعد.",
+      "loading": "جارٍ تحميل العلاجات…",
+      "loadError": "تعذّر تحميل العلاجات. حاولي مرة أخرى.",
+      "retry": "إعادة المحاولة",
+      "dismiss": "إغلاق",
+      "genericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+      "editor": {
+        "createTitle": "علاج جديد",
+        "back": "العودة إلى العلاجات",
+        "nameAr": "الاسم (بالعربية)",
+        "nameEn": "الاسم (بالإنجليزية)",
+        "descriptionAr": "الوصف (بالعربية)",
+        "descriptionEn": "الوصف (بالإنجليزية)",
+        "category": "القسم",
+        "selectCategory": "اختاري قسماً",
+        "duration": "المدة (بالدقائق)",
+        "concerns": "المشاكل التي يعالجها",
+        "noConcerns": "لم يتم إضافة أي مشكلة بعد.",
+        "doctors": "الأخصائيون الذين يقدمون هذا العلاج",
+        "noDoctors": "لم يتم إضافة أي أخصائي بعد.",
+        "doctorUnavailable": "(غير متاح)",
+        "isAvailable": "ظاهر على الموقع",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ…",
+        "cancel": "إلغاء"
+      },
+      "variants": {
+        "title": "الماركات",
+        "empty": "لا توجد ماركات لهذا العلاج بعد.",
+        "available": "متوفرة",
+        "unavailable": "غير متوفرة",
+        "addTitle": "إضافة ماركة",
+        "brandAr": "الماركة (بالعربية)",
+        "brandEn": "الماركة (بالإنجليزية)",
+        "priceUsd": "السعر (دولار)",
+        "add": "إضافة ماركة",
+        "adding": "جارٍ الإضافة…"
+      }
+    },
+    "back": "رجوع",
+    "loading": "جارٍ التحميل…",
+    "backToSite": "العودة إلى الموقع"
   }
 }

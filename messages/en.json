@@ -111,5 +111,131 @@
     "syNote": "SYP price is calculated at the current exchange rate.",
     "doctorsTitle": "Specialists who provide this treatment",
     "noDoctors": "No specialists are currently available for this treatment."
+  },
+  "admin": {
+    "login": {
+      "title": "Admin sign in",
+      "subtitle": "Staff access only.",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "genericError": "Something went wrong. Please try again."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome, {name}",
+      "subtitle": "The admin panel is under construction — more will land here soon.",
+      "logout": "Log out",
+      "appointmentsLink": "Appointments",
+      "appointmentsLinkDescription": "Review, confirm, and follow up on bookings.",
+      "servicesLink": "Services",
+      "servicesLinkDescription": "Manage treatments, brands, and pricing."
+    },
+    "appointments": {
+      "title": "Appointments",
+      "tabs": {
+        "all": "All appointments",
+        "calls": "Tomorrow's calls",
+        "followup": "Follow-up messages"
+      },
+      "table": {
+        "patient": "Patient",
+        "service": "Treatment",
+        "doctor": "Specialist",
+        "day": "Day",
+        "status": "Status",
+        "price": "Price",
+        "priceValue": "{price} SYP",
+        "actions": "Actions"
+      },
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "rescheduled": "Rescheduled",
+        "cancelled": "Cancelled",
+        "completed": "Completed",
+        "no_show": "No-show"
+      },
+      "actions": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "reschedule": "Reschedule",
+        "rescheduleSubmit": "Save",
+        "rescheduleCancel": "Cancel",
+        "markSent": "Mark as sent"
+      },
+      "empty": {
+        "all": "No appointments yet.",
+        "calls": "No calls to make tomorrow 🎉",
+        "followup": "No follow-up messages to send."
+      },
+      "loading": "Loading appointments…",
+      "loadError": "Couldn't load appointments. Please try again.",
+      "retry": "Retry",
+      "dismiss": "Dismiss",
+      "actionGenericError": "Something went wrong. Please try again."
+    },
+    "services": {
+      "title": "Services",
+      "newService": "New service",
+      "edit": "Edit",
+      "table": {
+        "name": "Treatment",
+        "category": "Category",
+        "priceRange": "Price range",
+        "brands": "Brands",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "available": "Available",
+        "hidden": "Hidden"
+      },
+      "minutes": "{count} min",
+      "brandsCount": "{available} of {total} available",
+      "noBrands": "No brands yet",
+      "empty": "No services yet.",
+      "loading": "Loading services…",
+      "loadError": "Couldn't load services. Please try again.",
+      "retry": "Retry",
+      "dismiss": "Dismiss",
+      "genericError": "Something went wrong. Please try again.",
+      "editor": {
+        "createTitle": "New service",
+        "back": "Back to services",
+        "nameAr": "Name (Arabic)",
+        "nameEn": "Name (English)",
+        "descriptionAr": "Description (Arabic)",
+        "descriptionEn": "Description (English)",
+        "category": "Category",
+        "selectCategory": "Select a category",
+        "duration": "Duration (minutes)",
+        "concerns": "Concerns treated",
+        "noConcerns": "No concerns have been created yet.",
+        "doctors": "Specialists providing this treatment",
+        "noDoctors": "No specialists have been added yet.",
+        "doctorUnavailable": "(unavailable)",
+        "isAvailable": "Visible on the public site",
+        "save": "Save",
+        "saving": "Saving…",
+        "cancel": "Cancel"
+      },
+      "variants": {
+        "title": "Brands",
+        "empty": "This service has no brands yet.",
+        "available": "Available",
+        "unavailable": "Unavailable",
+        "addTitle": "Add a brand",
+        "brandAr": "Brand (Arabic)",
+        "brandEn": "Brand (English)",
+        "priceUsd": "Price (USD)",
+        "add": "Add brand",
+        "adding": "Adding…"
+      }
+    },
+    "back": "Back",
+    "loading": "Loading…",
+    "backToSite": "Back to site"
   }
 }

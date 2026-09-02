@@ -4,7 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { BookingProvider } from "@/components/BookingProvider";
+import { SiteChrome } from "@/components/SiteChrome";
 import { localeDir } from "@/i18n/config";
 
 const geistSans = Geist({
@@ -48,11 +48,9 @@ export default async function RootLayout({ children }) {
     >
       <body className="flex min-h-full flex-col bg-bg text-fg">
         <NextIntlClientProvider>
-          <BookingProvider>
-            <Nav />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </BookingProvider>
+          <SiteChrome nav={<Nav />} footer={<Footer />}>
+            {children}
+          </SiteChrome>
         </NextIntlClientProvider>
       </body>
     </html>
