@@ -195,7 +195,7 @@ export function ServicesExplorer({ services, categories, concerns, doctors }) {
                   </div>
                   <div className="text-[11px] text-faint">{price.note}</div>
                 </div>
-                {service.duration_estimate && (
+                {service.duration_estimate != null && (
                   <div className="flex shrink-0 items-center gap-1.5 text-xs text-muted">
                     <Icon name="clock" size={14} />
                     {t("minutes", { count: service.duration_estimate })}
