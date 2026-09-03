@@ -130,7 +130,9 @@
       "appointmentsLink": "Appointments",
       "appointmentsLinkDescription": "Review, confirm, and follow up on bookings.",
       "servicesLink": "Services",
-      "servicesLinkDescription": "Manage treatments, brands, and pricing."
+      "servicesLinkDescription": "Manage treatments, brands, and pricing.",
+      "exchangeRateLink": "Exchange rate",
+      "exchangeRateLinkDescription": "Set the USD to SYP rate used for pricing."
     },
     "appointments": {
       "title": "Appointments",
@@ -233,6 +235,23 @@
         "add": "Add brand",
         "adding": "Adding…"
       }
+    },
+    "exchangeRate": {
+      "title": "Exchange rate",
+      "description": "Prices are stored in USD and shown to patients in SYP using this rate.",
+      "currentLabel": "Current rate",
+      "rateValue": "1 USD = {rate} SYP",
+      "updatedAt": "Last updated {timestamp}",
+      "notSet": "No exchange rate has been set yet.",
+      "loading": "Loading…",
+      "newRateLabel": "New rate (SYP per 1 USD)",
+      "save": "Update rate",
+      "saving": "Updating…",
+      "success": "Exchange rate updated.",
+      "invalidRate": "Enter a rate greater than zero.",
+      "genericError": "Something went wrong. Please try again.",
+      "forbiddenTitle": "Managers only",
+      "forbiddenBody": "You don't have permission to perform this action."
     },
     "back": "Back",
     "loading": "Loading…",

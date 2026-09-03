@@ -61,3 +61,13 @@ export const updateService = (id, changes) =>
     method: "PUT",
     body: JSON.stringify(changes),
   });
+
+/**
+ * Manager-only. Updates the single in-effect rate in place and returns
+ * { id, rate, updated_at, updated_by }. Reception gets a 403.
+ */
+export const updateExchangeRate = (rate) =>
+  adminFetch("/api/admin/exchange-rate", {
+    method: "PUT",
+    body: JSON.stringify({ rate }),
+  });
