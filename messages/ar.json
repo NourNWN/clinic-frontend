@@ -130,7 +130,9 @@
       "appointmentsLink": "المواعيد",
       "appointmentsLinkDescription": "مراجعة الحجوزات وتأكيدها ومتابعتها.",
       "servicesLink": "العلاجات",
-      "servicesLinkDescription": "إدارة العلاجات والماركات والأسعار."
+      "servicesLinkDescription": "إدارة العلاجات والماركات والأسعار.",
+      "exchangeRateLink": "سعر الصرف",
+      "exchangeRateLinkDescription": "تحديد سعر صرف الدولار مقابل الليرة السورية."
     },
     "appointments": {
       "title": "المواعيد",
@@ -233,6 +235,23 @@
         "add": "إضافة ماركة",
         "adding": "جارٍ الإضافة…"
       }
+    },
+    "exchangeRate": {
+      "title": "سعر الصرف",
+      "description": "الأسعار محفوظة بالدولار وتُعرض للمريضات بالليرة السورية وفق هذا السعر.",
+      "currentLabel": "السعر الحالي",
+      "rateValue": "1 دولار = {rate} ليرة سورية",
+      "updatedAt": "آخر تحديث {timestamp}",
+      "notSet": "لم يتم تحديد سعر الصرف بعد.",
+      "loading": "جارٍ التحميل…",
+      "newRateLabel": "السعر الجديد (ليرة سورية لكل دولار)",
+      "save": "تحديث السعر",
+      "saving": "جارٍ التحديث…",
+      "success": "تم تحديث سعر الصرف.",
+      "invalidRate": "أدخلي سعراً أكبر من صفر.",
+      "genericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+      "forbiddenTitle": "للمديرات فقط",
+      "forbiddenBody": "ليس لديك صلاحية للقيام بهذا الإجراء."
     },
     "back": "رجوع",
     "loading": "جارٍ التحميل…",
