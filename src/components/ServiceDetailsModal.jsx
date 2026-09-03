@@ -147,7 +147,7 @@ export function ServiceDetailsModal({ serviceId, doctors, onClose }) {
               </p>
             )}
 
-            {detail.duration_estimate && (
+            {detail.duration_estimate != null && (
               <div className="mt-4 flex items-center gap-1.5 text-xs text-muted">
                 <Icon name="clock" size={14} />
                 {tServices("minutes", { count: detail.duration_estimate })}
