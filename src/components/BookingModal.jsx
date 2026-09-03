@@ -24,6 +24,15 @@ function todayIsoDate() {
 
 const DEFAULT_COUNTRY = "SY";
 
+/** Matches the backend's patient_name column, so the field can't be filled
+ *  with something the API will only reject on submit. */
+const MAX_PATIENT_NAME = 150;
+
+/** The typed value is a national number and may carry spaces or dashes; what
+ *  gets sent is the E.164 form (16 characters at most), well inside the
+ *  backend's 20-character limit. This cap only stops absurd input. */
+const MAX_PATIENT_PHONE_INPUT = 25;
+
 export function BookingModal({ serviceId, onClose }) {
   const locale = useLocale();
   const t = useTranslations("bookingForm");
@@ -409,6 +418,7 @@ export function BookingModal({ serviceId, onClose }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 autoComplete="name"
+                maxLength={MAX_PATIENT_NAME}
                 className="mt-1.5 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg"
               />
               {fieldErrors.name && (
@@ -442,6 +452,7 @@ export function BookingModal({ serviceId, onClose }) {
                   onBlur={handlePhoneBlur}
                   autoComplete="tel-national"
                   dir="ltr"
+                  maxLength={MAX_PATIENT_PHONE_INPUT}
                   className="min-w-0 flex-1 rounded-e-lg bg-transparent px-3 py-2.5 text-start text-sm text-fg outline-none"
                 />
               </div>
