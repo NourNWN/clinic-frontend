@@ -71,3 +71,47 @@ export const updateExchangeRate = (rate) =>
     method: "PUT",
     body: JSON.stringify({ rate }),
   });
+
+/**
+ * Manager-only, like the rest of /api/admin/offers. `filters`: { is_active }.
+ * Each offer arrives with its items already expanded — every item carries its
+ * variant's brand names and its parent service's name — so the list and the
+ * editor can render an existing offer without fetching anything else.
+ */
+export const getOffers = (filters) =>
+  adminFetch(`/api/admin/offers${buildQuery(filters)}`);
+
+/**
+ * payload: { title_ar, title_en, start_date, end_date (both ISO yyyy-mm-dd),
+ * is_active, items: [{ service_variant_id (int), offer_price_syp }] }.
+ * `items` is required and must hold at least one entry, and a variant can
+ * only appear once per offer.
+ */
+export const createOffer = (payload) =>
+  adminFetch("/api/admin/offers", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+/**
+ * Despite the PUT verb this patches: only the fields present in `changes`
+ * are touched. An `items` array is the offer's complete set of live brands —
+ * entries are updated or added, and anything left out is flagged
+ * is_active=false. Rows are never deleted (a past appointment's
+ * offer_item_id may point at one), so re-adding a removed brand revives its
+ * original row rather than opening a second one for the same variant.
+ * Omitting `items` entirely leaves the current set untouched.
+ */
+export const updateOffer = (id, changes) =>
+  adminFetch(`/api/admin/offers/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(changes),
+  });
+
+/**
+ * A soft-disable, not a row delete: the offer stays listed with
+ * is_active=false (which is what takes it off the public site) and keeps its
+ * items for the same FK-safety reason. Returns the updated offer.
+ */
+export const deleteOffer = (id) =>
+  adminFetch(`/api/admin/offers/${id}`, { method: "DELETE" });

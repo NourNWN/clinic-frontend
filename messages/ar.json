@@ -132,7 +132,9 @@
       "servicesLink": "العلاجات",
       "servicesLinkDescription": "إدارة العلاجات والماركات والأسعار.",
       "exchangeRateLink": "سعر الصرف",
-      "exchangeRateLinkDescription": "تحديد سعر صرف الدولار مقابل الليرة السورية."
+      "exchangeRateLinkDescription": "تحديد سعر صرف الدولار مقابل الليرة السورية.",
+      "offersLink": "العروض",
+      "offersLinkDescription": "إدارة الأسعار الترويجية لماركات محددة."
     },
     "appointments": {
       "title": "المواعيد",
@@ -234,6 +236,72 @@
         "priceUsd": "السعر (دولار)",
         "add": "إضافة ماركة",
         "adding": "جارٍ الإضافة…"
+      },
+      "readOnlyNote": "للعرض فقط — يمكن للمديرات إضافة وتعديل الخدمات."
+    },
+    "offers": {
+      "title": "العروض",
+      "newOffer": "عرض جديد",
+      "edit": "تعديل",
+      "table": {
+        "title": "العرض",
+        "dates": "الفترة",
+        "items": "الماركات",
+        "status": "الحالة",
+        "actions": "إجراءات",
+        "dateRange": "{start} – {end}",
+        "itemsCount": "{count} ماركات",
+        "oneItem": "ماركة واحدة"
+      },
+      "status": {
+        "live": "ساري",
+        "scheduled": "مجدول",
+        "expired": "منتهٍ",
+        "inactive": "غير مفعّل"
+      },
+      "deactivate": "إيقاف",
+      "deactivateConfirm": "إيقاف هذا العرض؟",
+      "deactivateConfirmBody": "سيختفي من الموقع فوراً. تبقى ماركاته والحجوزات السابقة كما هي.",
+      "deactivateSubmit": "إيقاف",
+      "deactivateCancel": "الإبقاء عليه",
+      "empty": "لا توجد عروض بعد.",
+      "loading": "جارٍ التحميل…",
+      "loadError": "تعذّر تحميل العروض.",
+      "retry": "إعادة المحاولة",
+      "dismiss": "إغلاق",
+      "genericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+      "forbiddenTitle": "للمديرات فقط",
+      "forbiddenBody": "ليس لديك صلاحية للقيام بهذا الإجراء.",
+      "editor": {
+        "createTitle": "عرض جديد",
+        "back": "رجوع",
+        "titleAr": "العنوان (بالعربية)",
+        "titleEn": "العنوان (بالإنكليزية)",
+        "startDate": "يبدأ",
+        "endDate": "ينتهي",
+        "isActive": "مفعّل",
+        "save": "حفظ العرض",
+        "saving": "جارٍ الحفظ…",
+        "cancel": "إلغاء",
+        "dateRangeError": "يجب أن يكون تاريخ النهاية بعد تاريخ البداية أو مساوياً له.",
+        "itemsRequired": "أضيفي ماركة واحدة على الأقل مع سعرها."
+      },
+      "items": {
+        "title": "الماركات ضمن العرض",
+        "description": "لكل ماركة سعرها الثابت بالليرة السورية — لا يُحسب من سعر الدولار.",
+        "service": "العلاج",
+        "selectService": "اختاري العلاج",
+        "variant": "الماركة",
+        "selectVariant": "اختاري الماركة",
+        "loadingVariants": "جارٍ تحميل الماركات…",
+        "noVariants": "لا توجد ماركات متاحة لهذا العلاج.",
+        "priceSyp": "سعر العرض (ل.س)",
+        "usualPrice": "السعر المعتاد {price}",
+        "add": "إضافة ماركة",
+        "remove": "حذف",
+        "empty": "لم تتم إضافة أي ماركة بعد.",
+        "duplicate": "هذه الماركة مضافة إلى العرض مسبقاً.",
+        "replaceNote": "الماركات المدرجة هنا هي بالضبط ما سيحتويه العرض بعد الحفظ. الماركة المحذوفة تختفي من الموقع، مع الاحتفاظ بالحجوزات السابقة بسعر العرض."
       }
     },
     "exchangeRate": {

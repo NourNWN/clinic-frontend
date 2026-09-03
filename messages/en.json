@@ -132,7 +132,9 @@
       "servicesLink": "Services",
       "servicesLinkDescription": "Manage treatments, brands, and pricing.",
       "exchangeRateLink": "Exchange rate",
-      "exchangeRateLinkDescription": "Set the USD to SYP rate used for pricing."
+      "exchangeRateLinkDescription": "Set the USD to SYP rate used for pricing.",
+      "offersLink": "Offers",
+      "offersLinkDescription": "Run promotional pricing on selected brands."
     },
     "appointments": {
       "title": "Appointments",
@@ -234,6 +236,72 @@
         "priceUsd": "Price (USD)",
         "add": "Add brand",
         "adding": "Adding…"
+      },
+      "readOnlyNote": "Viewing only — managers can add and edit treatments."
+    },
+    "offers": {
+      "title": "Offers",
+      "newOffer": "New offer",
+      "edit": "Edit",
+      "table": {
+        "title": "Offer",
+        "dates": "Runs",
+        "items": "Brands",
+        "status": "Status",
+        "actions": "Actions",
+        "dateRange": "{start} – {end}",
+        "itemsCount": "{count} brands",
+        "oneItem": "1 brand"
+      },
+      "status": {
+        "live": "Live",
+        "scheduled": "Scheduled",
+        "expired": "Expired",
+        "inactive": "Inactive"
+      },
+      "deactivate": "Deactivate",
+      "deactivateConfirm": "Deactivate this offer?",
+      "deactivateConfirmBody": "It stops showing on the public site straight away. Its brands and past bookings are kept.",
+      "deactivateSubmit": "Deactivate",
+      "deactivateCancel": "Keep it",
+      "empty": "No offers yet.",
+      "loading": "Loading…",
+      "loadError": "We couldn't load the offers.",
+      "retry": "Try again",
+      "dismiss": "Dismiss",
+      "genericError": "Something went wrong. Please try again.",
+      "forbiddenTitle": "Managers only",
+      "forbiddenBody": "You don't have permission to perform this action.",
+      "editor": {
+        "createTitle": "New offer",
+        "back": "Back",
+        "titleAr": "Title (Arabic)",
+        "titleEn": "Title (English)",
+        "startDate": "Starts",
+        "endDate": "Ends",
+        "isActive": "Active",
+        "save": "Save offer",
+        "saving": "Saving…",
+        "cancel": "Cancel",
+        "dateRangeError": "The end date must be on or after the start date.",
+        "itemsRequired": "Add at least one brand with a price."
+      },
+      "items": {
+        "title": "Brands in this offer",
+        "description": "Each brand carries its own fixed price in SYP — it is not converted from the USD price.",
+        "service": "Treatment",
+        "selectService": "Choose a treatment",
+        "variant": "Brand",
+        "selectVariant": "Choose a brand",
+        "loadingVariants": "Loading brands…",
+        "noVariants": "This treatment has no bookable brands.",
+        "priceSyp": "Offer price (SYP)",
+        "usualPrice": "Usually {price}",
+        "add": "Add brand",
+        "remove": "Remove",
+        "empty": "No brands added yet.",
+        "duplicate": "That brand is already in this offer.",
+        "replaceNote": "The brands listed here are exactly what the offer will carry after saving. A removed brand stops showing on the site, but past bookings made at its offer price are kept."
       }
     },
     "exchangeRate": {
