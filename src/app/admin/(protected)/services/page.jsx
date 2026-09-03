@@ -10,6 +10,7 @@ import {
   getAdminServices,
   updateService,
 } from "@/lib/adminApi";
+import { getSession } from "@/lib/adminAuth";
 import { pickRequired } from "@/lib/localized";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { ServiceEditor } from "@/components/admin/ServiceEditor";
@@ -42,6 +43,14 @@ function priceRange(service) {
 export default function AdminServicesPage() {
   const locale = useLocale();
   const t = useTranslations("admin.services");
+
+  // Managing the catalogue is manager-only server-side (every write here
+  // answers 403 for reception), so the controls that would call those routes
+  // are hidden rather than left to fail. Safe to read synchronously: the
+  // (protected) layout only mounts this page client-side, after it has
+  // confirmed a session exists.
+  const [user] = useState(() => getSession()?.user ?? null);
+  const isManager = user?.role === "manager";
 
   const [services, setServices] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -169,7 +178,7 @@ export default function AdminServicesPage() {
           <h1 className="text-2xl font-semibold tracking-tight text-fg">
             {t("title")}
           </h1>
-          {view.mode === "list" && (
+          {view.mode === "list" && isManager && (
             <button
               type="button"
               onClick={() => setView({ mode: "create" })}
@@ -178,6 +187,9 @@ export default function AdminServicesPage() {
               <Icon name="sparkles" size={16} />
               {t("newService")}
             </button>
+          )}
+          {view.mode === "list" && !isManager && (
+            <p className="text-sm text-muted">{t("readOnlyNote")}</p>
           )}
         </div>
 
@@ -303,13 +315,15 @@ export default function AdminServicesPage() {
                           </span>
                         </td>
                         <td className="px-4 py-3.5">
-                          <button
-                            type="button"
-                            onClick={() => setView({ mode: "edit", id: s.id })}
-                            className="rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-fg transition-colors hover:border-brand hover:text-brand"
-                          >
-                            {t("edit")}
-                          </button>
+                          {isManager && (
+                            <button
+                              type="button"
+                              onClick={() => setView({ mode: "edit", id: s.id })}
+                              className="rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-fg transition-colors hover:border-brand hover:text-brand"
+                            >
+                              {t("edit")}
+                            </button>
+                          )}
                         </td>
                       </tr>
                     );
