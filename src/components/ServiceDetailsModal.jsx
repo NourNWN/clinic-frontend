@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getServiceDetail } from "@/lib/api";
 import { pick, pickRequired } from "@/lib/localized";
 import { Icon, categoryIcon } from "./Icon";
+import { Photo } from "./Photo";
 import { useBooking } from "./BookingProvider";
 
 /** USD amounts stay in Latin digits in both languages — they read as currency. */
@@ -141,6 +142,11 @@ export function ServiceDetailsModal({ serviceId, doctors, onClose }) {
 
         {detail && !loading && (
           <>
+            <Photo
+              src={detail.photo_url}
+              className="mt-5 h-44 w-full rounded-xl object-cover sm:h-56"
+            />
+
             {pick(detail, "description", locale) && (
               <p className="mt-4 text-sm leading-relaxed text-muted">
                 {pick(detail, "description", locale)}
@@ -162,51 +168,66 @@ export function ServiceDetailsModal({ serviceId, doctors, onClose }) {
                 {detail.variants.map((v) => (
                   <div
                     key={v.id}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-border bg-surface-2 px-4 py-3"
+                    className="overflow-hidden rounded-xl border border-border bg-surface-2"
                   >
-                    <span className="font-medium text-fg">
-                      {pickRequired(v, "brand_name", locale)}
-                    </span>
-                    <div className="flex flex-col items-end gap-1">
-                      {v.active_offer ? (
-                        <>
-                          <span className="flex items-center gap-2">
-                            <span className="text-xs text-faint line-through">
-                              {formatUsd(v.price_usd)}
+                    {/* An offer banner sits above the brand it discounts,
+                        so it reads as belonging to that row. */}
+                    <Photo
+                      src={v.active_offer?.photo_url}
+                      className="h-24 w-full object-cover"
+                    />
+
+                    <div className="flex items-center justify-between gap-3 px-4 py-3">
+                      <span className="flex min-w-0 items-center gap-3">
+                        <Photo
+                          src={v.photo_url}
+                          className="h-10 w-10 shrink-0 rounded-lg object-cover"
+                        />
+                        <span className="font-medium text-fg">
+                          {pickRequired(v, "brand_name", locale)}
+                        </span>
+                      </span>
+                      <div className="flex flex-col items-end gap-1">
+                        {v.active_offer ? (
+                          <>
+                            <span className="flex items-center gap-2">
+                              <span className="text-xs text-faint line-through">
+                                {formatUsd(v.price_usd)}
+                              </span>
+                              <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent">
+                                <bdi>
+                                  {tBooking("offerPriceSyp", {
+                                    price: Number(
+                                      v.active_offer.offer_price_syp,
+                                    ).toLocaleString("en-US"),
+                                  })}
+                                </bdi>
+                              </span>
                             </span>
-                            <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent">
+                            <span className="text-[11px] text-muted">
+                              {t("offerValidUntil", {
+                                date: formatOfferDate(
+                                  v.active_offer.end_date,
+                                  locale,
+                                ),
+                              })}
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="font-semibold text-fg">
                               <bdi>
-                                {tBooking("offerPriceSyp", {
-                                  price: Number(
-                                    v.active_offer.offer_price_syp,
-                                  ).toLocaleString("en-US"),
+                                {t("priceUsd", {
+                                  price: formatUsdAmount(v.price_usd),
                                 })}
                               </bdi>
                             </span>
-                          </span>
-                          <span className="text-[11px] text-muted">
-                            {t("offerValidUntil", {
-                              date: formatOfferDate(
-                                v.active_offer.end_date,
-                                locale,
-                              ),
-                            })}
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="font-semibold text-fg">
-                            <bdi>
-                              {t("priceUsd", {
-                                price: formatUsdAmount(v.price_usd),
-                              })}
-                            </bdi>
-                          </span>
-                          <span className="text-[11px] text-muted">
-                            {t("syNote")}
-                          </span>
-                        </>
-                      )}
+                            <span className="text-[11px] text-muted">
+                              {t("syNote")}
+                            </span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}

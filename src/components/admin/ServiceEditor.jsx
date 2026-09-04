@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { pickRequired } from "@/lib/localized";
 import { Icon } from "@/components/Icon";
+import { PhotoUrlField } from "./PhotoUrlField";
 
 const FIELD_CLASS =
   "mt-1.5 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg";
@@ -73,6 +74,7 @@ export function ServiceEditor({
   onSave,
   onAddVariant,
   onToggleVariant,
+  onUpdateVariant,
   onCancel,
   pending,
 }) {
@@ -88,6 +90,7 @@ export function ServiceEditor({
     category_id: service?.category_id ? String(service.category_id) : "",
     duration_estimate:
       service?.duration_estimate == null ? "" : String(service.duration_estimate),
+    photo_url: service?.photo_url ?? "",
     is_available: service?.is_available ?? true,
   }));
 
@@ -102,8 +105,31 @@ export function ServiceEditor({
     brand_name_ar: "",
     brand_name_en: "",
     price_usd: "",
+    photo_url: "",
   });
   const [addingVariant, setAddingVariant] = useState(false);
+
+  // Per-brand photo edits, keyed by variant id. A brand is only in here once
+  // it has been typed into; everything else falls back to the saved value,
+  // so a save elsewhere on the page doesn't strand a stale draft.
+  const [photoDrafts, setPhotoDrafts] = useState({});
+  const [savingPhotoId, setSavingPhotoId] = useState(null);
+
+  function variantPhoto(v) {
+    return photoDrafts[v.id] ?? v.photo_url ?? "";
+  }
+
+  async function saveVariantPhoto(v) {
+    setSavingPhotoId(v.id);
+    const ok = await onUpdateVariant(v, { photo_url: variantPhoto(v).trim() });
+    setSavingPhotoId(null);
+    if (ok) {
+      setPhotoDrafts((drafts) => {
+        const { [v.id]: _saved, ...rest } = drafts;
+        return rest;
+      });
+    }
+  }
 
   function setField(name, value) {
     setForm((f) => ({ ...f, [name]: value }));
@@ -128,6 +154,7 @@ export function ServiceEditor({
       category_id: form.category_id ? Number(form.category_id) : null,
       duration_estimate:
         form.duration_estimate === "" ? null : Number(form.duration_estimate),
+      photo_url: orNull(form.photo_url),
       is_available: form.is_available,
       // Sent every save: the form holds the full intended set, and the API
       // replaces rather than merges.
@@ -143,9 +170,17 @@ export function ServiceEditor({
       brand_name_ar: newVariant.brand_name_ar.trim(),
       brand_name_en: newVariant.brand_name_en.trim(),
       price_usd: newVariant.price_usd,
+      photo_url: orNull(newVariant.photo_url),
     });
     setAddingVariant(false);
-    if (ok) setNewVariant({ brand_name_ar: "", brand_name_en: "", price_usd: "" });
+    if (ok) {
+      setNewVariant({
+        brand_name_ar: "",
+        brand_name_en: "",
+        price_usd: "",
+        photo_url: "",
+      });
+    }
   }
 
   return (
@@ -232,6 +267,14 @@ export function ServiceEditor({
               className={FIELD_CLASS}
             />
           </div>
+
+          <PhotoUrlField
+            id="svc-photo"
+            className="sm:col-span-2"
+            label={t("editor.photoUrl")}
+            value={form.photo_url}
+            onChange={(value) => setField("photo_url", value)}
+          />
 
           <div className="sm:col-span-2">
             <label htmlFor="svc-desc-ar" className="text-sm font-medium text-fg">
@@ -330,31 +373,63 @@ export function ServiceEditor({
               {service.variants.map((v) => (
                 <li
                   key={v.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface-2/60 px-4 py-3"
+                  className="rounded-xl border border-border bg-surface-2/60 px-4 py-3"
                 >
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium text-fg">
-                      {pickRequired(v, "brand_name", locale)}
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="text-sm font-medium text-fg">
+                        {pickRequired(v, "brand_name", locale)}
+                      </div>
+                      <div className="mt-0.5 text-xs text-faint">
+                        <bdi>{formatUsd(v.price_usd)}</bdi>
+                      </div>
                     </div>
-                    <div className="mt-0.5 text-xs text-faint">
-                      <bdi>{formatUsd(v.price_usd)}</bdi>
-                    </div>
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => onToggleVariant(v)}
+                      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                        v.is_available
+                          ? "bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-400"
+                          : "bg-surface-2 text-muted hover:bg-surface-2/80"
+                      }`}
+                    >
+                      <Icon name={v.is_available ? "check" : "close"} size={13} />
+                      {v.is_available
+                        ? t("variants.available")
+                        : t("variants.unavailable")}
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    disabled={pending}
-                    onClick={() => onToggleVariant(v)}
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
-                      v.is_available
-                        ? "bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-400"
-                        : "bg-surface-2 text-muted hover:bg-surface-2/80"
-                    }`}
-                  >
-                    <Icon name={v.is_available ? "check" : "close"} size={13} />
-                    {v.is_available
-                      ? t("variants.available")
-                      : t("variants.unavailable")}
-                  </button>
+
+                  {/* Saved on its own, not with the service form above: the
+                      brands section already works one brand at a time. */}
+                  <div className="mt-3 flex items-end gap-2 border-t border-border pt-3">
+                    <PhotoUrlField
+                      id={`variant-photo-${v.id}`}
+                      className="min-w-0 flex-1"
+                      label={t("variants.photoUrl")}
+                      value={variantPhoto(v)}
+                      onChange={(value) =>
+                        setPhotoDrafts((drafts) => ({ ...drafts, [v.id]: value }))
+                      }
+                      compact
+                      inputClassName="w-full rounded-lg border border-border bg-surface px-3 py-2 text-xs text-fg"
+                    />
+                    <button
+                      type="button"
+                      disabled={
+                        pending ||
+                        savingPhotoId === v.id ||
+                        photoDrafts[v.id] === undefined
+                      }
+                      onClick={() => saveVariantPhoto(v)}
+                      className="shrink-0 rounded-lg border border-border bg-surface px-3 py-2 text-xs font-medium text-fg transition-colors hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {savingPhotoId === v.id
+                        ? t("variants.savingPhoto")
+                        : t("variants.savePhoto")}
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -403,6 +478,15 @@ export function ServiceEditor({
                 className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg"
               />
             </div>
+            <PhotoUrlField
+              id="new-variant-photo"
+              className="mt-3"
+              label={t("variants.photoUrl")}
+              value={newVariant.photo_url}
+              onChange={(value) =>
+                setNewVariant((v) => ({ ...v, photo_url: value }))
+              }
+            />
             <button
               type="submit"
               disabled={addingVariant || pending}

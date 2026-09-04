@@ -166,6 +166,26 @@ export default function AdminServicesPage() {
     }
   }
 
+  /** Edits one field on one existing brand — currently its photo. Not
+   * optimistic like the availability toggle: the value being saved is what
+   * the manager just typed, so showing it early would hide a rejection. */
+  async function handleUpdateVariant(service, variant, changes) {
+    setActionError(null);
+    setPending(true);
+    try {
+      const updated = await updateService(service.id, {
+        variants: [{ id: variant.id, ...changes }],
+      });
+      setServices((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+      return true;
+    } catch (err) {
+      setActionError(describeError(err));
+      return false;
+    } finally {
+      setPending(false);
+    }
+  }
+
   const selected =
     view.mode === "edit" ? services?.find((s) => s.id === view.id) ?? null : null;
 
@@ -235,6 +255,9 @@ export default function AdminServicesPage() {
               onSave={handleSave}
               onAddVariant={(variant) => handleAddVariant(selected, variant)}
               onToggleVariant={(variant) => handleToggleVariant(selected, variant)}
+              onUpdateVariant={(variant, changes) =>
+                handleUpdateVariant(selected, variant, changes)
+              }
               onCancel={() => {
                 setActionError(null);
                 setView({ mode: "list" });

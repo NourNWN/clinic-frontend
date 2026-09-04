@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getServiceDetail } from "@/lib/api";
 import { pickRequired } from "@/lib/localized";
 import { Icon } from "@/components/Icon";
+import { PhotoUrlField } from "./PhotoUrlField";
 
 const FIELD_CLASS =
   "mt-1.5 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg";
@@ -68,6 +69,7 @@ export function OfferEditor({ offer, services, onSave, onCancel, pending }) {
     title_en: offer?.title_en ?? "",
     start_date: offer?.start_date ?? "",
     end_date: offer?.end_date ?? "",
+    photo_url: offer?.photo_url ?? "",
     is_active: offer?.is_active ?? true,
   }));
 
@@ -181,6 +183,8 @@ export function OfferEditor({ offer, services, onSave, onCancel, pending }) {
       title_en: form.title_en.trim(),
       start_date: form.start_date,
       end_date: form.end_date,
+      // "" -> null so a cleared field reaches the API as a real null.
+      photo_url: form.photo_url.trim() === "" ? null : form.photo_url.trim(),
       is_active: form.is_active,
       items: items.map((r) => ({
         ...(r.id != null ? { id: r.id } : {}),
@@ -264,6 +268,14 @@ export function OfferEditor({ offer, services, onSave, onCancel, pending }) {
                 className={FIELD_CLASS}
               />
             </div>
+
+            <PhotoUrlField
+              id="offer-photo"
+              className="sm:col-span-2"
+              label={t("editor.photoUrl")}
+              value={form.photo_url}
+              onChange={(value) => setField("photo_url", value)}
+            />
           </div>
 
           <label className="mt-5 flex w-fit items-center gap-2.5 text-sm text-fg">

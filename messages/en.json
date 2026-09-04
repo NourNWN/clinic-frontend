@@ -117,6 +117,10 @@
     "noDoctors": "No specialists are currently available for this treatment."
   },
   "admin": {
+    "photo": {
+      "placeholder": "https://… or /photo.jpg",
+      "brokenUrl": "This image didn't load — check the address."
+    },
     "login": {
       "title": "Admin sign in",
       "subtitle": "Staff access only.",
@@ -219,6 +223,7 @@
         "category": "Category",
         "selectCategory": "Select a category",
         "duration": "Duration (minutes)",
+        "photoUrl": "Photo URL",
         "concerns": "Concerns treated",
         "noConcerns": "No concerns have been created yet.",
         "doctors": "Specialists providing this treatment",
@@ -238,6 +243,9 @@
         "brandAr": "Brand (Arabic)",
         "brandEn": "Brand (English)",
         "priceUsd": "Price (USD)",
+        "photoUrl": "Brand photo URL",
+        "savePhoto": "Save photo",
+        "savingPhoto": "Saving…",
         "add": "Add brand",
         "adding": "Adding…"
       },
@@ -283,6 +291,7 @@
         "titleEn": "Title (English)",
         "startDate": "Starts",
         "endDate": "Ends",
+        "photoUrl": "Banner photo URL",
         "isActive": "Active",
         "save": "Save offer",
         "saving": "Saving…",
