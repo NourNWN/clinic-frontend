@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { localeDir } from "@/i18n/config";
+import { getLiveOffers } from "@/lib/serverApi";
 import { cookies } from "next/headers";
 import { defaultTheme, isTheme, THEME_COOKIE, themeAttribute } from "@/lib/theme";
 
@@ -50,6 +51,11 @@ export default async function RootLayout({ children }) {
   const stored = cookieStore.get(THEME_COOKIE)?.value;
   const theme = isTheme(stored) ? stored : defaultTheme;
 
+  // The nav only carries an Offers link on days there is an offers section
+  // to jump to. The home page shares this exact call, so the link and the
+  // section can never disagree.
+  const offers = await getLiveOffers();
+
   return (
     <html
       lang={locale}
@@ -60,7 +66,10 @@ export default async function RootLayout({ children }) {
       <body className="flex min-h-full flex-col bg-bg text-fg">
         <NextIntlClientProvider>
           <ThemeProvider theme={theme}>
-            <SiteChrome nav={<Nav />} footer={<Footer />}>
+            <SiteChrome
+              nav={<Nav hasOffers={offers.length > 0} />}
+              footer={<Footer />}
+            >
               {children}
             </SiteChrome>
           </ThemeProvider>

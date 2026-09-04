@@ -4,9 +4,9 @@ import {
   getConcerns,
   getDoctors,
   getExchangeRate,
-  getOffers,
   getServices,
 } from "@/lib/api";
+import { getLiveOffers } from "@/lib/serverApi";
 import { pick, pickRequired } from "@/lib/localized";
 import { Icon, categoryIcon } from "@/components/Icon";
 import { OffersSection } from "@/components/OffersSection";
@@ -55,9 +55,10 @@ export default async function Home() {
       getConcerns(),
       getServices(),
       getDoctors(),
-      // Offers decorate the page rather than make it; a failure here should
-      // cost the section, not the whole site.
-      getOffers().catch(() => []),
+      // Shared with the root layout, which needs the same answer to decide
+      // whether the nav shows an Offers link. Already falls back to an empty
+      // list on failure: offers decorate the page rather than make it.
+      getLiveOffers(),
     ]);
     // The rate endpoint answers 503 until an admin sets one — not fatal.
     rate = await getExchangeRate().catch(() => null);
@@ -146,25 +147,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ---------------- Offers ---------------- */}
-      {/* Nothing running today means no section at all, rather than a card
-          apologising for the absence of a discount nobody was promised. */}
-      {offers.length > 0 && (
-        <section
-          id="offers"
-          className="border-b border-border bg-surface-2/60 py-20"
-        >
-          <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <SectionHeading
-              eyebrow={t("offers.eyebrow")}
-              title={t("offers.title")}
-              description={t("offers.description")}
-            />
-            <OffersSection offers={offers} />
-          </div>
-        </section>
-      )}
-
       {/* ---------------- Categories ---------------- */}
       <section id="categories" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <SectionHeading
@@ -235,6 +217,23 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* ---------------- Offers ---------------- */}
+      {/* Below Services on purpose: an offer price only means something once
+          the usual USD price and today's exchange rate, both established
+          above, have been read. Nothing running today means no section at
+          all, rather than a card apologising for the absence of a discount
+          nobody was promised. */}
+      {offers.length > 0 && (
+        <section id="offers" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+          <SectionHeading
+            eyebrow={t("offers.eyebrow")}
+            title={t("offers.title")}
+            description={t("offers.description")}
+          />
+          <OffersSection offers={offers} />
+        </section>
+      )}
 
       {/* ---------------- Doctors ---------------- */}
       <section id="doctors" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">

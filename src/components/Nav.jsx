@@ -8,16 +8,25 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useBooking } from "./BookingProvider";
 
+// Listed in the order the sections appear down the page.
 const links = [
   { href: "#categories", key: "categories" },
   { href: "#services", key: "services" },
+  { href: "#offers", key: "offers", needsOffers: true },
   { href: "#doctors", key: "team" },
 ];
 
-export function Nav() {
+/**
+ * `hasOffers` comes from the layout, which asks the API what is running
+ * today. The offers section only exists on days it has something to show, so
+ * the link has to come and go with it rather than scroll to nothing.
+ */
+export function Nav({ hasOffers = false }) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
   const { openBooking } = useBooking();
+
+  const navLinks = links.filter((link) => hasOffers || !link.needsOffers);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-md">
@@ -42,7 +51,7 @@ export function Nav() {
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -79,7 +88,7 @@ export function Nav() {
       {open && (
         <div className="border-t border-border bg-surface px-5 py-3 md:hidden">
           <div className="flex flex-col gap-1">
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
