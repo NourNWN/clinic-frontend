@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...but the template belongs in the repo, or a fresh clone has no
+# NEXT_PUBLIC_API_URL and every API call goes to "undefined/api/...".
+!.env*.example
 
 # vercel
 .vercel

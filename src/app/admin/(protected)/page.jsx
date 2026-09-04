@@ -43,6 +43,24 @@ export default function AdminDashboardPage() {
               title: t("servicesLink"),
               description: t("servicesLinkDescription"),
             },
+            // Manager-only, mirroring the backend's @require_role("manager")
+            // on PUT /api/admin/exchange-rate and every /api/admin/offers route.
+            ...(user?.role === "manager"
+              ? [
+                  {
+                    href: "/admin/offers",
+                    icon: "sparkles",
+                    title: t("offersLink"),
+                    description: t("offersLinkDescription"),
+                  },
+                  {
+                    href: "/admin/exchange-rate",
+                    icon: "tag",
+                    title: t("exchangeRateLink"),
+                    description: t("exchangeRateLinkDescription"),
+                  },
+                ]
+              : []),
           ].map((item) => (
             <Link
               key={item.href}
