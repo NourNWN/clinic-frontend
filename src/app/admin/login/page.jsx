@@ -9,6 +9,7 @@ import { ApiError } from "@/lib/api";
 import { adminLogin, getSession } from "@/lib/adminAuth";
 import { pickRequired } from "@/lib/localized";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -60,7 +61,10 @@ export default function AdminLoginPage() {
             {tNav("brand")}
           </span>
         </Link>
-        <LocaleSwitcher />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeSwitcher />
+          <LocaleSwitcher />
+        </div>
       </div>
 
       <div className="flex flex-1 items-center justify-center px-5 pb-16">

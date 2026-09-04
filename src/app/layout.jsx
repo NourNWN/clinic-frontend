@@ -5,7 +5,10 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { localeDir } from "@/i18n/config";
+import { cookies } from "next/headers";
+import { defaultTheme, isTheme, THEME_COOKIE, themeAttribute } from "@/lib/theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,17 +43,27 @@ export default async function RootLayout({ children }) {
   // already in the right language and direction.
   const locale = await getLocale();
 
+  // Same idea for the colour scheme: reading the cookie here means <html>
+  // carries the right `data-theme` in the very first response, so a visitor
+  // who chose dark never sees a white flash before hydration.
+  const cookieStore = await cookies();
+  const stored = cookieStore.get(THEME_COOKIE)?.value;
+  const theme = isTheme(stored) ? stored : defaultTheme;
+
   return (
     <html
       lang={locale}
       dir={localeDir[locale] ?? "ltr"}
+      data-theme={themeAttribute(theme)}
       className={`${geistSans.variable} ${geistMono.variable} ${notoArabic.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-bg text-fg">
         <NextIntlClientProvider>
-          <SiteChrome nav={<Nav />} footer={<Footer />}>
-            {children}
-          </SiteChrome>
+          <ThemeProvider theme={theme}>
+            <SiteChrome nav={<Nav />} footer={<Footer />}>
+              {children}
+            </SiteChrome>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
