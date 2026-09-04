@@ -170,6 +170,14 @@
         "priceValue": "{price} ليرة سورية",
         "actions": "الإجراءات"
       },
+      "export": {
+        "print": "طباعة",
+        "excel": "إكسل",
+        "printedOn": "طُبع بتاريخ {date}",
+        "phone": "رقم الهاتف",
+        "brand": "الماركة",
+        "priceHeader": "السعر (ل.س)"
+      },
       "status": {
         "pending": "قيد الانتظار",
         "confirmed": "مؤكد",

@@ -170,6 +170,14 @@
         "priceValue": "{price} SYP",
         "actions": "Actions"
       },
+      "export": {
+        "print": "Print",
+        "excel": "Excel",
+        "printedOn": "Printed {date}",
+        "phone": "Phone",
+        "brand": "Brand",
+        "priceHeader": "Price (SYP)"
+      },
       "status": {
         "pending": "Pending",
         "confirmed": "Confirmed",
