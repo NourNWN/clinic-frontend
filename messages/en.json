@@ -27,6 +27,14 @@
     "statCategories": "Categories",
     "statSpecialists": "Specialists"
   },
+  "offers": {
+    "eyebrow": "Offers",
+    "title": "Running right now",
+    "description": "Offer prices are fixed in Syrian pounds for the length of the offer, so they don't move with the exchange rate. Tap a treatment to book it.",
+    "endsOn": "Ends {date}",
+    "usualPrice": "Usually {price}",
+    "bookAria": "Book {service} at the offer price"
+  },
   "categories": {
     "eyebrow": "Categories",
     "title": "Where would you like to start?",

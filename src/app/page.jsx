@@ -4,10 +4,12 @@ import {
   getConcerns,
   getDoctors,
   getExchangeRate,
+  getOffers,
   getServices,
 } from "@/lib/api";
 import { pick, pickRequired } from "@/lib/localized";
 import { Icon, categoryIcon } from "@/components/Icon";
+import { OffersSection } from "@/components/OffersSection";
 import { ServicesExplorer } from "@/components/ServicesExplorer";
 
 /** "Dr. Sara Ahmad" -> "SA", "د. سارة أحمد" -> "سأ" */
@@ -43,15 +45,19 @@ export default async function Home() {
   let concerns = [];
   let services = [];
   let doctors = [];
+  let offers = [];
   let rate = null;
   let failed = false;
 
   try {
-    [categories, concerns, services, doctors] = await Promise.all([
+    [categories, concerns, services, doctors, offers] = await Promise.all([
       getCategories(),
       getConcerns(),
       getServices(),
       getDoctors(),
+      // Offers decorate the page rather than make it; a failure here should
+      // cost the section, not the whole site.
+      getOffers().catch(() => []),
     ]);
     // The rate endpoint answers 503 until an admin sets one — not fatal.
     rate = await getExchangeRate().catch(() => null);
@@ -139,6 +145,25 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* ---------------- Offers ---------------- */}
+      {/* Nothing running today means no section at all, rather than a card
+          apologising for the absence of a discount nobody was promised. */}
+      {offers.length > 0 && (
+        <section
+          id="offers"
+          className="border-b border-border bg-surface-2/60 py-20"
+        >
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            <SectionHeading
+              eyebrow={t("offers.eyebrow")}
+              title={t("offers.title")}
+              description={t("offers.description")}
+            />
+            <OffersSection offers={offers} />
+          </div>
+        </section>
+      )}
 
       {/* ---------------- Categories ---------------- */}
       <section id="categories" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">

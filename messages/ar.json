@@ -27,6 +27,14 @@
     "statCategories": "قسم",
     "statSpecialists": "أخصائي"
   },
+  "offers": {
+    "eyebrow": "العروض",
+    "title": "عروض سارية الآن",
+    "description": "أسعار العروض ثابتة بالليرة السورية طوال مدة العرض، فلا تتغير مع سعر الصرف. اضغطي على العلاج لحجزه.",
+    "endsOn": "ينتهي {date}",
+    "usualPrice": "السعر المعتاد {price}",
+    "bookAria": "احجزي {service} بسعر العرض"
+  },
   "categories": {
     "eyebrow": "الأقسام",
     "title": "من أين تحبين أن تبدأي؟",
