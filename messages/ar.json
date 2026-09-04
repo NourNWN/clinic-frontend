@@ -9,6 +9,10 @@
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة",
     "language": "اللغة",
+    "theme": "المظهر",
+    "theme_light": "فاتح",
+    "theme_system": "حسب النظام",
+    "theme_dark": "داكن",
     "switchTo": "English",
     "logoAlt": "شعار Hiam Clinic"
   },

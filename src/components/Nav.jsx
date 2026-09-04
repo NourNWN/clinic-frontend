@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Icon } from "./Icon";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useBooking } from "./BookingProvider";
 
 const links = [
@@ -50,7 +51,8 @@ export function Nav() {
               {t(link.key)}
             </a>
           ))}
-          <LocaleSwitcher className="ms-2" />
+          <ThemeSwitcher className="ms-2" />
+          <LocaleSwitcher className="ms-1" />
           <button
             type="button"
             onClick={() => openBooking()}
@@ -97,6 +99,10 @@ export function Nav() {
             >
               {t("book")}
             </button>
+            <div className="mt-2 flex items-center justify-between border-t border-border pt-3">
+              <span className="text-sm font-medium text-muted">{t("theme")}</span>
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       )}

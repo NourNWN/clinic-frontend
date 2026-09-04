@@ -9,6 +9,10 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
+    "theme": "Theme",
+    "theme_light": "Light",
+    "theme_system": "System",
+    "theme_dark": "Dark",
     "switchTo": "العربية",
     "logoAlt": "Hiam Clinic logo"
   },

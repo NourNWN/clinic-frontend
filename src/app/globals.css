@@ -4,8 +4,21 @@
    Design tokens — champagne gold and bronze, drawn from the Hiam
    Clinic logo. Light values live on :root; only the tokens change
    in dark mode.
+
+   Dark mode has three states, so the rules are ordered by specificity:
+   the OS preference applies on its own, and an explicit choice from the
+   header switch — `data-theme` on <html>, rendered from a cookie so the
+   first paint is already correct — overrides it in either direction.
+   `:not([data-theme="light"])` is what lets someone on a dark OS force
+   the site light.
+
+   The dark values are written once, as `--dark-*`, and the two rules
+   below only map them onto the live tokens. A colour therefore never
+   exists in two places to drift apart.
    --------------------------------------------------------------- */
 :root {
+  color-scheme: light;
+
   --bg: #fbf9f5;
   --surface: #ffffff;
   --surface-2: #f4ede0;
@@ -28,33 +41,89 @@
   --shadow-sm: 0 1px 2px rgb(36 29 15 / 0.06), 0 1px 3px rgb(36 29 15 / 0.05);
   --shadow-md: 0 4px 12px rgb(36 29 15 / 0.07), 0 2px 4px rgb(36 29 15 / 0.04);
   --shadow-lg: 0 12px 32px rgb(36 29 15 / 0.10), 0 4px 8px rgb(36 29 15 / 0.04);
+
+  /* The dark palette. These are not live tokens — the two rules below
+     are what assign them. */
+  --dark-bg: #14100a;
+  --dark-surface: #1c1610;
+  --dark-surface-2: #241d13;
+  --dark-border: #362c1c;
+  --dark-border-strong: #493b25;
+
+  --dark-fg: #f3ecdc;
+  --dark-muted: #bdac8c;
+  --dark-faint: #8c7e64;
+
+  --dark-brand: #ddb65f;
+  --dark-brand-strong: #eaca86;
+  --dark-brand-soft: #40351c;
+  --dark-brand-fg: #2a2109;
+
+  --dark-accent: #dab581;
+  --dark-accent-soft: #372b1b;
+
+  --dark-ring: #ddb65f;
+  --dark-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --dark-shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
+  --dark-shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
 }
 
+/* The OS asked for dark and the visitor has not overridden it. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14100a;
-    --surface: #1c1610;
-    --surface-2: #241d13;
-    --border: #362c1c;
-    --border-strong: #493b25;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
 
-    --fg: #f3ecdc;
-    --muted: #bdac8c;
-    --faint: #8c7e64;
+    --bg: var(--dark-bg);
+    --surface: var(--dark-surface);
+    --surface-2: var(--dark-surface-2);
+    --border: var(--dark-border);
+    --border-strong: var(--dark-border-strong);
 
-    --brand: #ddb65f;
-    --brand-strong: #eaca86;
-    --brand-soft: #40351c;
-    --brand-fg: #2a2109;
+    --fg: var(--dark-fg);
+    --muted: var(--dark-muted);
+    --faint: var(--dark-faint);
 
-    --accent: #dab581;
-    --accent-soft: #372b1b;
+    --brand: var(--dark-brand);
+    --brand-strong: var(--dark-brand-strong);
+    --brand-soft: var(--dark-brand-soft);
+    --brand-fg: var(--dark-brand-fg);
 
-    --ring: #ddb65f;
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-    --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
-    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+    --accent: var(--dark-accent);
+    --accent-soft: var(--dark-accent-soft);
+
+    --ring: var(--dark-ring);
+    --shadow-sm: var(--dark-shadow-sm);
+    --shadow-md: var(--dark-shadow-md);
+    --shadow-lg: var(--dark-shadow-lg);
   }
+}
+
+/* The visitor chose dark, whatever the OS says. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: var(--dark-bg);
+  --surface: var(--dark-surface);
+  --surface-2: var(--dark-surface-2);
+  --border: var(--dark-border);
+  --border-strong: var(--dark-border-strong);
+
+  --fg: var(--dark-fg);
+  --muted: var(--dark-muted);
+  --faint: var(--dark-faint);
+
+  --brand: var(--dark-brand);
+  --brand-strong: var(--dark-brand-strong);
+  --brand-soft: var(--dark-brand-soft);
+  --brand-fg: var(--dark-brand-fg);
+
+  --accent: var(--dark-accent);
+  --accent-soft: var(--dark-accent-soft);
+
+  --ring: var(--dark-ring);
+  --shadow-sm: var(--dark-shadow-sm);
+  --shadow-md: var(--dark-shadow-md);
+  --shadow-lg: var(--dark-shadow-lg);
 }
 
 @theme inline {

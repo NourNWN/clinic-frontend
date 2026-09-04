@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { logout } from "@/lib/adminAuth";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { Icon } from "@/components/Icon";
 
 /** Shared chrome for every page under /admin/(protected) — brand mark
- * (optionally with a back link), locale switcher, and logout. */
+ * (optionally with a back link), theme and locale switchers, and logout. */
 export function AdminHeader({ backHref }) {
   const tNav = useTranslations("nav");
   const tAdmin = useTranslations("admin");
@@ -40,7 +41,8 @@ export function AdminHeader({ backHref }) {
           </span>
         </Link>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <ThemeSwitcher />
         <LocaleSwitcher />
         <button
           type="button"
