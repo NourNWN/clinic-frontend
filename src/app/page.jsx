@@ -243,6 +243,14 @@ export default async function Home() {
           description={t("doctors.description")}
         />
 
+        {/* Sits above the specialists rather than among them: she oversees
+            the practice, and is not one of the bookable practitioners in the
+            doctors table below. */}
+        <p className="mt-5 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm text-muted shadow-card">
+          <Icon name="shield" size={15} className="shrink-0 text-brand" />
+          {t("doctors.managedBy")}
+        </p>
+
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {doctors.map((doctor) => {
             const name = pickRequired(doctor, "name", locale);

@@ -62,7 +62,8 @@
   "doctors": {
     "eyebrow": "فريقنا",
     "title": "أخصائيون يهتمون بك",
-    "description": "كل إجراء يتم على يد ممارس مرخّص في مجاله."
+    "description": "كل إجراء يتم على يد ممارس مرخّص في مجاله.",
+    "managedBy": "بإدارة د. هيام عطا جبلي"
   },
   "booking": {
     "title": "جاهزة لحجز موعدك؟",
@@ -107,7 +108,7 @@
     "friday": "الجمعة",
     "closed": "مغلق",
     "email": "hello@hiamclinic.sy",
-    "address": "المزة، دمشق",
+    "address": "شارع بغداد، دمشق",
     "rights": "© {year} Hiam Clinic. واجهة تجريبية لأغراض التطوير."
   },
   "error": {

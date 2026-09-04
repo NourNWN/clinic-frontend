@@ -62,7 +62,8 @@
   "doctors": {
     "eyebrow": "Our team",
     "title": "Specialists who will care for you",
-    "description": "Every procedure is performed by a licensed practitioner in their field."
+    "description": "Every procedure is performed by a licensed practitioner in their field.",
+    "managedBy": "Under the management of Dr. Hiam Atta Jabalee"
   },
   "booking": {
     "title": "Ready to book your visit?",
@@ -107,7 +108,7 @@
     "friday": "Friday",
     "closed": "Closed",
     "email": "hello@hiamclinic.sy",
-    "address": "Mazzeh, Damascus",
+    "address": "Baghdad Street, Damascus",
     "rights": "© {year} Hiam Clinic. Demo interface for development."
   },
   "error": {
