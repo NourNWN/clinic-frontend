@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ApiError } from "@/lib/api";
 import { getAdminAppointments, updateAppointment } from "@/lib/adminApi";
 import { pickRequired } from "@/lib/localized";
+import { downloadCsv } from "@/lib/exportCsv";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { Icon } from "@/components/Icon";
 
@@ -70,6 +71,8 @@ function StatusBadge({ status, label }) {
 export default function AdminAppointmentsPage() {
   const locale = useLocale();
   const t = useTranslations("admin.appointments");
+  // The printed sheet leaves the building, so it carries the clinic's name.
+  const tNav = useTranslations("nav");
 
   const [tomorrow] = useState(() => todayLocalIso(1));
   const [activeTab, setActiveTab] = useState("all");
@@ -190,18 +193,95 @@ export default function AdminAppointmentsPage() {
 
   const tab = tabsState[activeTab];
   const rows = tab.data ?? [];
+  const today = todayLocalIso();
+
+  /**
+   * The browser's print dialog doubles as the PDF export — every one of
+   * them offers "Save as PDF" — which is why there is no PDF library here.
+   * It also means Arabic names are laid out by the browser and come out
+   * correctly shaped, which a bundled PDF font would not manage for free.
+   */
+  function handlePrint() {
+    window.print();
+  }
+
+  /** One row per appointment, in the same order and language as the table
+   * on screen, so the file and the page can be read against each other. */
+  function handleExport() {
+    const headers = [
+      t("table.patient"),
+      t("export.phone"),
+      t("table.service"),
+      t("export.brand"),
+      t("table.doctor"),
+      t("table.day"),
+      t("table.status"),
+      t("export.priceHeader"),
+    ];
+
+    const data = rows.map((a) => [
+      a.patient_name,
+      a.patient_phone,
+      a.service_variant.service_name_ar,
+      a.service_variant.brand_name_ar,
+      a.doctor.name_ar,
+      a.preferred_day,
+      t(`status.${a.status}`),
+      // The raw number, not the formatted label: a spreadsheet should be
+      // able to total this column.
+      a.final_price_syp_at_booking,
+    ]);
+
+    downloadCsv(`appointments-${activeTab}-${today}.csv`, headers, data);
+  }
 
   return (
     <div className="flex min-h-full flex-col">
-      <AdminHeader backHref="/admin" />
+      <div className="print-hide">
+        <AdminHeader backHref="/admin" />
+      </div>
 
       <div className="mx-auto w-full max-w-6xl flex-1 px-5 py-10 sm:px-8">
-        <h1 className="text-2xl font-semibold tracking-tight text-fg">
-          {t("title")}
-        </h1>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h1 className="text-2xl font-semibold tracking-tight text-fg print-hide">
+            {t("title")}
+          </h1>
+
+          {/* Both act on `rows` — the list currently on screen — so what
+              comes out is what the open tab is showing. */}
+          <div className="flex items-center gap-2 print-hide">
+            <button
+              type="button"
+              onClick={handlePrint}
+              disabled={rows.length === 0}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm font-medium text-fg transition-colors hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Icon name="printer" size={15} />
+              {t("export.print")}
+            </button>
+            <button
+              type="button"
+              onClick={handleExport}
+              disabled={rows.length === 0}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm font-medium text-fg transition-colors hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Icon name="download" size={15} />
+              {t("export.excel")}
+            </button>
+          </div>
+        </div>
+
+        {/* Replaces the heading and tab bar on paper, where neither the
+            clinic's name nor which list this is can be inferred. */}
+        <div className="print-only">
+          <h1 className="text-lg font-semibold text-fg">{tNav("brand")}</h1>
+          <p className="mt-1 text-sm text-muted">
+            {t(`tabs.${activeTab}`)} · {t("export.printedOn", { date: today })}
+          </p>
+        </div>
 
         {/* ---------------- Tabs ---------------- */}
-        <div className="mt-6 flex flex-wrap gap-2 border-b border-border pb-px">
+        <div className="mt-6 flex flex-wrap gap-2 border-b border-border pb-px print-hide">
           {TABS.map((tabKey) => {
             const isActive = tabKey === activeTab;
             const count = tabsState[tabKey].data?.length;
@@ -234,7 +314,7 @@ export default function AdminAppointmentsPage() {
         </div>
 
         {actionError && (
-          <div className="mt-5 flex items-center justify-between gap-3 rounded-lg border border-border bg-accent-soft px-3.5 py-2.5 text-sm text-accent">
+          <div className="mt-5 flex items-center justify-between gap-3 rounded-lg border border-border bg-accent-soft px-3.5 py-2.5 text-sm text-accent print-hide">
             <span>{actionError}</span>
             <button
               type="button"
@@ -267,8 +347,8 @@ export default function AdminAppointmentsPage() {
               {t(`empty.${activeTab}`)}
             </p>
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-border bg-surface shadow-card">
-              <table className="w-full min-w-[900px] text-start text-sm">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-surface shadow-card print-full-width">
+              <table className="w-full min-w-[900px] text-start text-sm print-full-width">
                 <thead>
                   <tr className="border-b border-border text-xs font-medium text-faint">
                     <th className="px-4 py-3 text-start font-medium">
@@ -289,7 +369,7 @@ export default function AdminAppointmentsPage() {
                     <th className="px-4 py-3 text-start font-medium">
                       {t("table.price")}
                     </th>
-                    <th className="px-4 py-3 text-start font-medium">
+                    <th className="px-4 py-3 text-start font-medium print-hide">
                       {t("table.actions")}
                     </th>
                   </tr>
@@ -324,7 +404,7 @@ export default function AdminAppointmentsPage() {
                             })}
                           </bdi>
                         </td>
-                        <td className="px-4 py-3.5">
+                        <td className="px-4 py-3.5 print-hide">
                           {activeTab === "followup" ? (
                             <button
                               type="button"

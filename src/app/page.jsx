@@ -6,8 +6,10 @@ import {
   getExchangeRate,
   getServices,
 } from "@/lib/api";
+import { getLiveOffers } from "@/lib/serverApi";
 import { pick, pickRequired } from "@/lib/localized";
 import { Icon, categoryIcon } from "@/components/Icon";
+import { OffersSection } from "@/components/OffersSection";
 import { ServicesExplorer } from "@/components/ServicesExplorer";
 
 /** "Dr. Sara Ahmad" -> "SA", "د. سارة أحمد" -> "سأ" */
@@ -43,15 +45,20 @@ export default async function Home() {
   let concerns = [];
   let services = [];
   let doctors = [];
+  let offers = [];
   let rate = null;
   let failed = false;
 
   try {
-    [categories, concerns, services, doctors] = await Promise.all([
+    [categories, concerns, services, doctors, offers] = await Promise.all([
       getCategories(),
       getConcerns(),
       getServices(),
       getDoctors(),
+      // Shared with the root layout, which needs the same answer to decide
+      // whether the nav shows an Offers link. Already falls back to an empty
+      // list on failure: offers decorate the page rather than make it.
+      getLiveOffers(),
     ]);
     // The rate endpoint answers 503 until an admin sets one — not fatal.
     rate = await getExchangeRate().catch(() => null);
@@ -211,6 +218,23 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ---------------- Offers ---------------- */}
+      {/* Below Services on purpose: an offer price only means something once
+          the usual USD price and today's exchange rate, both established
+          above, have been read. Nothing running today means no section at
+          all, rather than a card apologising for the absence of a discount
+          nobody was promised. */}
+      {offers.length > 0 && (
+        <section id="offers" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+          <SectionHeading
+            eyebrow={t("offers.eyebrow")}
+            title={t("offers.title")}
+            description={t("offers.description")}
+          />
+          <OffersSection offers={offers} />
+        </section>
+      )}
+
       {/* ---------------- Doctors ---------------- */}
       <section id="doctors" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <SectionHeading
@@ -218,6 +242,14 @@ export default async function Home() {
           title={t("doctors.title")}
           description={t("doctors.description")}
         />
+
+        {/* Sits above the specialists rather than among them: she oversees
+            the practice, and is not one of the bookable practitioners in the
+            doctors table below. */}
+        <p className="mt-5 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm text-muted shadow-card">
+          <Icon name="shield" size={15} className="shrink-0 text-brand" />
+          {t("doctors.managedBy")}
+        </p>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {doctors.map((doctor) => {

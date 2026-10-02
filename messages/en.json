@@ -3,6 +3,7 @@
     "brand": "Hiam Clinic",
     "tagline": "Aesthetic & Skincare",
     "categories": "Categories",
+    "offers": "Offers",
     "services": "Services",
     "team": "Our Team",
     "book": "Book a visit",
@@ -26,6 +27,14 @@
     "statTreatments": "Treatments",
     "statCategories": "Categories",
     "statSpecialists": "Specialists"
+  },
+  "offers": {
+    "eyebrow": "Offers",
+    "title": "Running right now",
+    "description": "Offer prices are fixed in Syrian pounds for the length of the offer, so they don't move with the exchange rate. Tap a treatment to book it.",
+    "endsOn": "Ends {date}",
+    "usualPrice": "Usually {price}",
+    "bookAria": "Book {service} at the offer price"
   },
   "categories": {
     "eyebrow": "Categories",
@@ -53,7 +62,8 @@
   "doctors": {
     "eyebrow": "Our team",
     "title": "Specialists who will care for you",
-    "description": "Every procedure is performed by a licensed practitioner in their field."
+    "description": "Every procedure is performed by a licensed practitioner in their field.",
+    "managedBy": "Under the management of Dr. Hiam Atta Jabalee"
   },
   "booking": {
     "title": "Ready to book your visit?",
@@ -98,7 +108,7 @@
     "friday": "Friday",
     "closed": "Closed",
     "email": "hello@hiamclinic.sy",
-    "address": "Mazzeh, Damascus",
+    "address": "Baghdad Street, Damascus",
     "rights": "© {year} Hiam Clinic. Demo interface for development."
   },
   "error": {
@@ -117,6 +127,10 @@
     "noDoctors": "No specialists are currently available for this treatment."
   },
   "admin": {
+    "photo": {
+      "placeholder": "https://… or /photo.jpg",
+      "brokenUrl": "This image didn't load — check the address."
+    },
     "login": {
       "title": "Admin sign in",
       "subtitle": "Staff access only.",
@@ -156,6 +170,14 @@
         "price": "Price",
         "priceValue": "{price} SYP",
         "actions": "Actions"
+      },
+      "export": {
+        "print": "Print",
+        "excel": "Excel",
+        "printedOn": "Printed {date}",
+        "phone": "Phone",
+        "brand": "Brand",
+        "priceHeader": "Price (SYP)"
       },
       "status": {
         "pending": "Pending",
@@ -219,6 +241,7 @@
         "category": "Category",
         "selectCategory": "Select a category",
         "duration": "Duration (minutes)",
+        "photoUrl": "Photo URL",
         "concerns": "Concerns treated",
         "noConcerns": "No concerns have been created yet.",
         "doctors": "Specialists providing this treatment",
@@ -238,6 +261,9 @@
         "brandAr": "Brand (Arabic)",
         "brandEn": "Brand (English)",
         "priceUsd": "Price (USD)",
+        "photoUrl": "Brand photo URL",
+        "savePhoto": "Save photo",
+        "savingPhoto": "Saving…",
         "add": "Add brand",
         "adding": "Adding…"
       },
@@ -283,6 +309,7 @@
         "titleEn": "Title (English)",
         "startDate": "Starts",
         "endDate": "Ends",
+        "photoUrl": "Banner photo URL",
         "isActive": "Active",
         "save": "Save offer",
         "saving": "Saving…",

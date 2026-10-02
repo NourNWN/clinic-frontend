@@ -48,6 +48,14 @@ export const getConcerns = () => getJson("/api/concerns");
 export const getDoctors = () => getJson("/api/doctors");
 export const getServices = () => getJson("/api/services");
 export const getServiceDetail = (id) => getJson(`/api/services/${id}`);
+
+/**
+ * Only the offers running today, each with the brands a patient can still
+ * book. Unlike the admin listing this hides scheduled and expired offers,
+ * withdrawn brands, and offers left with nothing to sell — so an empty array
+ * means "no offers right now", not "something went wrong".
+ */
+export const getOffers = () => getJson("/api/offers");
 export const getExchangeRate = () => getJson("/api/exchange-rate");
 export const createAppointment = (payload) =>
   postJson("/api/appointments", payload);

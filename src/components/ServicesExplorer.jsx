@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { pick, pickRequired } from "@/lib/localized";
 import { Icon, categoryIcon } from "./Icon";
+import { Photo } from "./Photo";
 import { useBooking } from "./BookingProvider";
 import { ServiceDetailsModal } from "./ServiceDetailsModal";
 
@@ -148,71 +149,78 @@ export function ServicesExplorer({ services, categories, concerns, doctors }) {
             <article
               key={service.id}
               onClick={() => setDetailsServiceId(service.id)}
-              className="group flex cursor-pointer flex-col rounded-2xl border border-border bg-surface p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card-hover"
+              className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card-hover"
             >
-              <div className="flex items-center gap-2 text-xs font-medium text-brand">
-                <Icon
-                  name={categoryIcon(service.category.name_en)}
-                  size={15}
-                  className="shrink-0"
-                />
-                {pickRequired(service.category, "name", locale)}
-              </div>
+              <Photo
+                src={service.photo_url}
+                className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+              />
 
-              <h3 className="mt-3 text-base font-semibold tracking-tight text-fg">
-                {pickRequired(service, "name", locale)}
-              </h3>
-
-              {description && (
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
-                  {description}
-                </p>
-              )}
-
-              {service.concerns.length > 0 && (
-                <ul className="mt-4 flex flex-wrap gap-1.5">
-                  {service.concerns.map((concern) => (
-                    <li key={concern.id}>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          selectConcern(concern.id);
-                        }}
-                        className="rounded-md bg-surface-2 px-2 py-1 text-[11px] font-medium text-muted transition-colors hover:bg-brand-soft hover:text-brand"
-                      >
-                        {pickRequired(concern, "name", locale)}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="mt-5 flex items-end justify-between gap-3 border-t border-border pt-4">
-                <div>
-                  <div className="text-lg font-semibold tracking-tight text-fg">
-                    <bdi>{price.value}</bdi>
-                  </div>
-                  <div className="text-[11px] text-faint">{price.note}</div>
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-center gap-2 text-xs font-medium text-brand">
+                  <Icon
+                    name={categoryIcon(service.category.name_en)}
+                    size={15}
+                    className="shrink-0"
+                  />
+                  {pickRequired(service.category, "name", locale)}
                 </div>
-                {service.duration_estimate != null && (
-                  <div className="flex shrink-0 items-center gap-1.5 text-xs text-muted">
-                    <Icon name="clock" size={14} />
-                    {t("minutes", { count: service.duration_estimate })}
-                  </div>
-                )}
-              </div>
 
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openBooking(service.id);
-                }}
-                className="mt-4 w-full rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-fg shadow-card transition-all hover:bg-brand-strong hover:shadow-card-hover"
-              >
-                {t("bookCta")}
-              </button>
+                <h3 className="mt-3 text-base font-semibold tracking-tight text-fg">
+                  {pickRequired(service, "name", locale)}
+                </h3>
+
+                {description && (
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+                    {description}
+                  </p>
+                )}
+
+                {service.concerns.length > 0 && (
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {service.concerns.map((concern) => (
+                      <li key={concern.id}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            selectConcern(concern.id);
+                          }}
+                          className="rounded-md bg-surface-2 px-2 py-1 text-[11px] font-medium text-muted transition-colors hover:bg-brand-soft hover:text-brand"
+                        >
+                          {pickRequired(concern, "name", locale)}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className="mt-5 flex items-end justify-between gap-3 border-t border-border pt-4">
+                  <div>
+                    <div className="text-lg font-semibold tracking-tight text-fg">
+                      <bdi>{price.value}</bdi>
+                    </div>
+                    <div className="text-[11px] text-faint">{price.note}</div>
+                  </div>
+                  {service.duration_estimate != null && (
+                    <div className="flex shrink-0 items-center gap-1.5 text-xs text-muted">
+                      <Icon name="clock" size={14} />
+                      {t("minutes", { count: service.duration_estimate })}
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openBooking(service.id);
+                  }}
+                  className="mt-4 w-full rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-fg shadow-card transition-all hover:bg-brand-strong hover:shadow-card-hover"
+                >
+                  {t("bookCta")}
+                </button>
+              </div>
             </article>
           );
         })}

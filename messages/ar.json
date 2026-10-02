@@ -3,6 +3,7 @@
     "brand": "Hiam Clinic",
     "tagline": "التجميل والعناية بالبشرة",
     "categories": "الأقسام",
+    "offers": "العروض",
     "services": "العلاجات",
     "team": "فريقنا",
     "book": "احجزي موعدك",
@@ -26,6 +27,14 @@
     "statTreatments": "علاج",
     "statCategories": "قسم",
     "statSpecialists": "أخصائي"
+  },
+  "offers": {
+    "eyebrow": "العروض",
+    "title": "عروض سارية الآن",
+    "description": "أسعار العروض ثابتة بالليرة السورية طوال مدة العرض، فلا تتغير مع سعر الصرف. اضغطي على العلاج لحجزه.",
+    "endsOn": "ينتهي {date}",
+    "usualPrice": "السعر المعتاد {price}",
+    "bookAria": "احجزي {service} بسعر العرض"
   },
   "categories": {
     "eyebrow": "الأقسام",
@@ -53,7 +62,8 @@
   "doctors": {
     "eyebrow": "فريقنا",
     "title": "أخصائيون يهتمون بك",
-    "description": "كل إجراء يتم على يد ممارس مرخّص في مجاله."
+    "description": "كل إجراء يتم على يد ممارس مرخّص في مجاله.",
+    "managedBy": "بإدارة د. هيام عطا جبلي"
   },
   "booking": {
     "title": "جاهزة لحجز موعدك؟",
@@ -98,7 +108,7 @@
     "friday": "الجمعة",
     "closed": "مغلق",
     "email": "hello@hiamclinic.sy",
-    "address": "المزة، دمشق",
+    "address": "شارع بغداد، دمشق",
     "rights": "© {year} Hiam Clinic. واجهة تجريبية لأغراض التطوير."
   },
   "error": {
@@ -117,6 +127,10 @@
     "noDoctors": "لا يوجد أخصائيون متاحون لهذا العلاج حالياً."
   },
   "admin": {
+    "photo": {
+      "placeholder": "https://… أو /photo.jpg",
+      "brokenUrl": "تعذّر تحميل الصورة — تأكدي من الرابط."
+    },
     "login": {
       "title": "تسجيل دخول الإدارة",
       "subtitle": "لطاقم العمل فقط.",
@@ -156,6 +170,14 @@
         "price": "السعر",
         "priceValue": "{price} ليرة سورية",
         "actions": "الإجراءات"
+      },
+      "export": {
+        "print": "طباعة",
+        "excel": "إكسل",
+        "printedOn": "طُبع بتاريخ {date}",
+        "phone": "رقم الهاتف",
+        "brand": "الماركة",
+        "priceHeader": "السعر (ل.س)"
       },
       "status": {
         "pending": "قيد الانتظار",
@@ -219,6 +241,7 @@
         "category": "القسم",
         "selectCategory": "اختاري قسماً",
         "duration": "المدة (بالدقائق)",
+        "photoUrl": "رابط الصورة",
         "concerns": "المشاكل التي يعالجها",
         "noConcerns": "لم يتم إضافة أي مشكلة بعد.",
         "doctors": "الأخصائيون الذين يقدمون هذا العلاج",
@@ -238,6 +261,9 @@
         "brandAr": "الماركة (بالعربية)",
         "brandEn": "الماركة (بالإنجليزية)",
         "priceUsd": "السعر (دولار)",
+        "photoUrl": "رابط صورة الماركة",
+        "savePhoto": "حفظ الصورة",
+        "savingPhoto": "جارٍ الحفظ…",
         "add": "إضافة ماركة",
         "adding": "جارٍ الإضافة…"
       },
@@ -283,6 +309,7 @@
         "titleEn": "العنوان (بالإنكليزية)",
         "startDate": "يبدأ",
         "endDate": "ينتهي",
+        "photoUrl": "رابط صورة العرض",
         "isActive": "مفعّل",
         "save": "حفظ العرض",
         "saving": "جارٍ الحفظ…",

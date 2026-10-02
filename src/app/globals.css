@@ -223,3 +223,88 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------------------------------------------------------------
+   Print
+
+   A printed schedule is a document, not a workspace: everything that
+   exists only to be clicked comes off the page, and the palette is
+   remapped to plain ink on white so a dark-mode screen doesn't flood
+   a sheet of paper. These rules come last in the file so they win the
+   specificity tie against the `[data-theme]` blocks above.
+
+   The browser's own print dialog is also the PDF export — "Save as
+   PDF" is in every one of them — which is why there is no PDF library
+   anywhere in this project, and why Arabic names come out correctly
+   shaped: the browser does the text layout, not a bundled font.
+   --------------------------------------------------------------- */
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    color-scheme: light;
+
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --border: #b0b0b0;
+    --border-strong: #808080;
+
+    --fg: #000000;
+    --muted: #333333;
+    --faint: #4a4a4a;
+
+    --brand: #000000;
+    --brand-strong: #000000;
+    --brand-soft: #ffffff;
+    --brand-fg: #000000;
+
+    --accent: #000000;
+    --accent-soft: #ffffff;
+
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+  }
+
+  /* Controls, navigation and anything else that can't be acted on from
+     paper. Marked at the call site with `print-hide`. */
+  .print-hide {
+    display: none !important;
+  }
+
+  /* The reverse: a title block that only makes sense once the screen's
+     own heading and tab bar have been hidden. */
+  .print-only {
+    display: block !important;
+  }
+
+  /* On screen the table scrolls sideways inside a fixed minimum width;
+     on paper it has to fit the sheet instead. */
+  .print-full-width {
+    min-width: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Repeat the column headers on every sheet, and never split a row
+     across a page break. */
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}
+
+/* Hidden until the page is being printed. */
+.print-only {
+  display: none;
+}
