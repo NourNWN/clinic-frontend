@@ -39,6 +39,28 @@ export const getAdminConcerns = () => adminFetch("/api/admin/concerns");
 export const getAdminDoctors = (filters) =>
   adminFetch(`/api/admin/doctors${buildQuery(filters)}`);
 
+export const createDoctor = (payload) =>
+  adminFetch("/api/admin/doctors", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+export const updateDoctor = (id, changes) =>
+  adminFetch(`/api/admin/doctors/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(changes),
+  });
+
+/** Uploads one image as multipart/form-data and returns `{ url }`. */
+export const uploadImage = (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  return adminFetch("/api/admin/upload", {
+    method: "POST",
+    body: formData,
+  });
+};
+
 /**
  * payload: { category_id (int, required), name_ar, name_en (required),
  * description_ar, description_en, duration_estimate (int|null),

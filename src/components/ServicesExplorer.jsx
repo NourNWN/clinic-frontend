@@ -146,11 +146,19 @@ export function ServicesExplorer({ services, categories, concerns, doctors }) {
           const price = priceLabel(service);
           const description = pick(service, "description", locale);
           return (
-            <article
-              key={service.id}
-              onClick={() => setDetailsServiceId(service.id)}
-              className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card-hover"
-            >
+              <article
+                key={service.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => setDetailsServiceId(service.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setDetailsServiceId(service.id);
+                  }
+                }}
+                className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card-hover"
+              >
               <Photo
                 src={service.photo_url}
                 className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"

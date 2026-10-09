@@ -68,7 +68,7 @@
   "booking": {
     "title": "جاهزة لحجز موعدك؟",
     "description": "اتصلي بنا وسيقوم فريق الاستقبال بتأكيد موعدك والإجابة عن أي استفسار حول الأسعار.",
-    "phone": "‎+963 11 234 5678"
+    "phone": "‎+963 988 888 537"
   },
   "bookingForm": {
     "title": "احجزي موعدك",
@@ -128,6 +128,10 @@
   },
   "admin": {
     "photo": {
+      "upload": "رفع صورة",
+      "uploading": "جارٍ الرفع...",
+      "uploadHint": "JPEG أو PNG أو WebP، حتى 5 ميغابايت",
+      "uploadFailed": "فشل رفع الصورة. حاولي مرة أخرى.",
       "placeholder": "https://… أو /photo.jpg",
       "brokenUrl": "تعذّر تحميل الصورة — تأكدي من الرابط."
     },
@@ -149,6 +153,8 @@
       "appointmentsLinkDescription": "مراجعة الحجوزات وتأكيدها ومتابعتها.",
       "servicesLink": "العلاجات",
       "servicesLinkDescription": "إدارة العلاجات والماركات والأسعار.",
+      "doctorsLink": "الأخصائيون",
+      "doctorsLinkDescription": "إدارة ملفات أخصائيي العيادة.",
       "exchangeRateLink": "سعر الصرف",
       "exchangeRateLinkDescription": "تحديد سعر صرف الدولار مقابل الليرة السورية.",
       "offersLink": "العروض",
@@ -268,6 +274,44 @@
         "adding": "جارٍ الإضافة…"
       },
       "readOnlyNote": "للعرض فقط — يمكن للمديرات إضافة وتعديل الخدمات."
+    },
+    "doctors": {
+      "title": "الأخصائيون",
+      "newDoctor": "أخصائي جديد",
+      "edit": "تعديل",
+      "table": {
+        "name": "الأخصائي",
+        "specialty": "الاختصاص",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "available": "متاح",
+        "unavailable": "غير متاح"
+      },
+      "empty": "لا يوجد أخصائيون بعد.",
+      "loading": "جارٍ تحميل الأخصائيين...",
+      "loadError": "تعذّر تحميل الأخصائيين. حاولي مرة أخرى.",
+      "retry": "إعادة المحاولة",
+      "dismiss": "إغلاق",
+      "genericError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+      "forbiddenTitle": "للمديرات فقط",
+      "forbiddenBody": "ليس لديك صلاحية للقيام بهذا الإجراء.",
+      "editor": {
+        "createTitle": "أخصائي جديد",
+        "back": "العودة إلى الأخصائيين",
+        "nameAr": "الاسم (بالعربية)",
+        "nameEn": "الاسم (بالإنكليزية)",
+        "specialtyAr": "الاختصاص (بالعربية)",
+        "specialtyEn": "الاختصاص (بالإنكليزية)",
+        "bioAr": "النبذة (بالعربية)",
+        "bioEn": "النبذة (بالإنكليزية)",
+        "photoUrl": "رابط الصورة",
+        "isAvailable": "متاح للحجوزات",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ...",
+        "cancel": "إلغاء"
+      }
     },
     "offers": {
       "title": "العروض",

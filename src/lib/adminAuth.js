@@ -86,11 +86,17 @@ export function logout() {
  */
 export async function adminFetch(path, options = {}) {
   const session = readSession();
+  // The browser must set multipart/form-data's boundary itself. Supplying a
+  // JSON Content-Type for FormData prevents Flask from finding the file.
+  const isFormData =
+    typeof FormData !== "undefined" && options.body instanceof FormData;
 
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(options.body && !isFormData
+        ? { "Content-Type": "application/json" }
+        : {}),
       ...options.headers,
       ...(session ? { Authorization: `Bearer ${session.token}` } : {}),
     },

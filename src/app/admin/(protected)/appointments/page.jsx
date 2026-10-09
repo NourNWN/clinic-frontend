@@ -128,13 +128,10 @@ export default function AdminAppointmentsPage() {
 
   async function runAction(appointment, changes) {
     const optimistic = { ...appointment, ...changes };
-    let snapshot;
+    const snapshot = tabsState;
     setPendingIds((s) => new Set(s).add(appointment.id));
     setActionError(null);
-    setTabsState((s) => {
-      snapshot = s;
-      return applyToAllTabs(s, optimistic);
-    });
+    setTabsState(applyToAllTabs(tabsState, optimistic));
 
     try {
       const updated = await updateAppointment(appointment.id, changes);
@@ -166,6 +163,10 @@ export default function AdminAppointmentsPage() {
         status: "cancelled",
         ...(inCallsTab && { reminder_call_status: "called_cancelled" }),
       },
+      complete: {
+        status: "completed",
+        ...(inCallsTab && { reminder_call_status: "called_confirmed" }),
+      },
       reschedule: {
         status: "rescheduled",
         ...(inCallsTab && { reminder_call_status: "called_rescheduled" }),
@@ -195,18 +196,10 @@ export default function AdminAppointmentsPage() {
   const rows = tab.data ?? [];
   const today = todayLocalIso();
 
-  /**
-   * The browser's print dialog doubles as the PDF export — every one of
-   * them offers "Save as PDF" — which is why there is no PDF library here.
-   * It also means Arabic names are laid out by the browser and come out
-   * correctly shaped, which a bundled PDF font would not manage for free.
-   */
   function handlePrint() {
     window.print();
   }
 
-  /** One row per appointment, in the same order and language as the table
-   * on screen, so the file and the page can be read against each other. */
   function handleExport() {
     const headers = [
       t("table.patient"),
@@ -222,13 +215,11 @@ export default function AdminAppointmentsPage() {
     const data = rows.map((a) => [
       a.patient_name,
       a.patient_phone,
-      a.service_variant.service_name_ar,
-      a.service_variant.brand_name_ar,
-      a.doctor.name_ar,
+      pickRequired(a.service_variant, "service_name", locale),
+      pickRequired(a.service_variant, "brand_name", locale),
+      pickRequired(a.doctor, "name", locale),
       a.preferred_day,
       t(`status.${a.status}`),
-      // The raw number, not the formatted label: a spreadsheet should be
-      // able to total this column.
       a.final_price_syp_at_booking,
     ]);
 
@@ -247,8 +238,6 @@ export default function AdminAppointmentsPage() {
             {t("title")}
           </h1>
 
-          {/* Both act on `rows` — the list currently on screen — so what
-              comes out is what the open tab is showing. */}
           <div className="flex items-center gap-2 print-hide">
             <button
               type="button"
@@ -271,8 +260,6 @@ export default function AdminAppointmentsPage() {
           </div>
         </div>
 
-        {/* Replaces the heading and tab bar on paper, where neither the
-            clinic's name nor which list this is can be inferred. */}
         <div className="print-only">
           <h1 className="text-lg font-semibold text-fg">{tNav("brand")}</h1>
           <p className="mt-1 text-sm text-muted">
@@ -387,12 +374,16 @@ export default function AdminAppointmentsPage() {
                           </div>
                         </td>
                         <td className="px-4 py-3.5 text-fg">
-                          <div>{a.service_variant.service_name_ar}</div>
+                          <div>
+                            {pickRequired(a.service_variant, "service_name", locale)}
+                          </div>
                           <div className="mt-0.5 text-xs text-faint">
-                            {a.service_variant.brand_name_ar}
+                            {pickRequired(a.service_variant, "brand_name", locale)}
                           </div>
                         </td>
-                        <td className="px-4 py-3.5 text-fg">{a.doctor.name_ar}</td>
+                        <td className="px-4 py-3.5 text-fg">
+                          {pickRequired(a.doctor, "name", locale)}
+                        </td>
                         <td className="px-4 py-3.5 text-fg">{a.preferred_day}</td>
                         <td className="px-4 py-3.5">
                           <StatusBadge status={a.status} label={t(`status.${a.status}`)} />
@@ -451,6 +442,19 @@ export default function AdminAppointmentsPage() {
                               >
                                 {t("actions.confirm")}
                               </button>
+                              
+                              {/* زر الـ Complete المضاف */}
+                              {a.status !== "completed" && (
+                                <button
+                                  type="button"
+                                  disabled={isPending}
+                                  onClick={() => runAction(a, quickChanges("complete"))}
+                                  className="rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-fg transition-colors hover:border-emerald-600 hover:text-emerald-800 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:text-emerald-300"
+                                >
+                                  Complete
+                                </button>
+                              )}
+
                               <button
                                 type="button"
                                 disabled={isPending}
