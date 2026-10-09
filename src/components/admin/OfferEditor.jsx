@@ -10,11 +10,6 @@ import { PhotoUrlField } from "./PhotoUrlField";
 const FIELD_CLASS =
   "mt-1.5 w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg";
 
-function formatSyp(value) {
-  const n = Number(value);
-  return Number.isNaN(n) ? value : n.toLocaleString("en-US");
-}
-
 function formatUsd(value) {
   const n = Number(value);
   if (Number.isNaN(n)) return value;
@@ -189,7 +184,9 @@ export function OfferEditor({ offer, services, onSave, onCancel, pending }) {
       items: items.map((r) => ({
         ...(r.id != null ? { id: r.id } : {}),
         service_variant_id: Number(r.variantId),
-        offer_price_syp: r.price,
+        // completedRows() guarantees a non-empty string, so this can't
+        // collapse a blank into a silent 0.
+        offer_price_syp: Number(r.price),
       })),
     });
   }

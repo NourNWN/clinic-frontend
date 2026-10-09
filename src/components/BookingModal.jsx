@@ -45,6 +45,7 @@ export function BookingModal({ serviceId, onClose }) {
   const [serviceDetail, setServiceDetail] = useState(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [loadError, setLoadError] = useState(false);
+  const [servicesError, setServicesError] = useState(false);
 
   const [variantId, setVariantId] = useState("");
   const [doctorId, setDoctorId] = useState("");
@@ -80,7 +81,7 @@ export function BookingModal({ serviceId, onClose }) {
     if (isPreselected) return;
     getServices()
       .then(setAllServices)
-      .catch(() => {});
+      .catch(() => setServicesError(true));
   }, [isPreselected]);
 
   // Full detail (variants + doctors) is only on the single-service endpoint.
@@ -255,7 +256,7 @@ export function BookingModal({ serviceId, onClose }) {
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-brand-fg shadow-card transition-all hover:bg-brand-strong hover:shadow-card-hover"
             >
               <Icon name="phone" size={16} />
-              <bdi>+963 11 234 5678</bdi>
+              <bdi>+963 988 888 537</bdi>
             </a>
           </div>
         ) : (
@@ -291,6 +292,9 @@ export function BookingModal({ serviceId, onClose }) {
                     </option>
                   ))}
                 </select>
+                {servicesError && (
+                  <p className="mt-1.5 text-xs text-accent">{t("loadError")}</p>
+                )}
               </div>
             )}
 

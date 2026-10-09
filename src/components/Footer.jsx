@@ -7,7 +7,7 @@ export async function Footer() {
   const tNav = await getTranslations("nav");
 
   const contact = [
-    { icon: "phone", text: "+963 11 234 5678" },
+    { icon: "phone", text: "+963 988 888 537" },
     { icon: "mail", text: t("email") },
     { icon: "pin", text: t("address") },
   ];

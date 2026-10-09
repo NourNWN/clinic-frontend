@@ -169,7 +169,9 @@ export function ServiceEditor({
     const ok = await onAddVariant({
       brand_name_ar: newVariant.brand_name_ar.trim(),
       brand_name_en: newVariant.brand_name_en.trim(),
-      price_usd: newVariant.price_usd,
+      // The input's value is a string; the API wants a number (or null when
+      // left blank), same as duration_estimate on the service form above.
+      price_usd: newVariant.price_usd === "" ? null : Number(newVariant.price_usd),
       photo_url: orNull(newVariant.photo_url),
     });
     setAddingVariant(false);

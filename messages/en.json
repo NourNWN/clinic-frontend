@@ -68,7 +68,7 @@
   "booking": {
     "title": "Ready to book your visit?",
     "description": "Call us and our reception team will confirm your appointment and answer any questions about pricing.",
-    "phone": "+963 11 234 5678"
+    "phone": "+963 988 888 537"
   },
   "bookingForm": {
     "title": "Book your visit",
@@ -104,10 +104,10 @@
     "contact": "Contact",
     "hours": "Hours",
     "weekdays": "Sat – Thu",
-    "weekdayHours": "10:00 – 19:00",
+    "weekdayHours": "09:00 – 17:00",
     "friday": "Friday",
     "closed": "Closed",
-    "email": "hello@hiamclinic.sy",
+    "email": "h.jabalee@gmail.com",
     "address": "Baghdad Street, Damascus",
     "rights": "© {year} Hiam Clinic. Demo interface for development."
   },
@@ -128,6 +128,10 @@
   },
   "admin": {
     "photo": {
+      "upload": "Upload image",
+      "uploading": "Uploading...",
+      "uploadHint": "JPEG, PNG, or WebP, up to 5 MB",
+      "uploadFailed": "Image upload failed. Please try again.",
       "placeholder": "https://… or /photo.jpg",
       "brokenUrl": "This image didn't load — check the address."
     },
@@ -149,6 +153,8 @@
       "appointmentsLinkDescription": "Review, confirm, and follow up on bookings.",
       "servicesLink": "Services",
       "servicesLinkDescription": "Manage treatments, brands, and pricing.",
+      "doctorsLink": "Specialists",
+      "doctorsLinkDescription": "Manage the clinic's specialist profiles.",
       "exchangeRateLink": "Exchange rate",
       "exchangeRateLinkDescription": "Set the USD to SYP rate used for pricing.",
       "offersLink": "Offers",
@@ -268,6 +274,44 @@
         "adding": "Adding…"
       },
       "readOnlyNote": "Viewing only — managers can add and edit treatments."
+    },
+    "doctors": {
+      "title": "Specialists",
+      "newDoctor": "New specialist",
+      "edit": "Edit",
+      "table": {
+        "name": "Specialist",
+        "specialty": "Specialty",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "available": "Available",
+        "unavailable": "Unavailable"
+      },
+      "empty": "No specialists yet.",
+      "loading": "Loading specialists...",
+      "loadError": "Couldn't load specialists. Please try again.",
+      "retry": "Retry",
+      "dismiss": "Dismiss",
+      "genericError": "Something went wrong. Please try again.",
+      "forbiddenTitle": "Managers only",
+      "forbiddenBody": "You don't have permission to perform this action.",
+      "editor": {
+        "createTitle": "New specialist",
+        "back": "Back to specialists",
+        "nameAr": "Name (Arabic)",
+        "nameEn": "Name (English)",
+        "specialtyAr": "Specialty (Arabic)",
+        "specialtyEn": "Specialty (English)",
+        "bioAr": "Biography (Arabic)",
+        "bioEn": "Biography (English)",
+        "photoUrl": "Photo URL",
+        "isAvailable": "Available for bookings",
+        "save": "Save",
+        "saving": "Saving...",
+        "cancel": "Cancel"
+      }
     },
     "offers": {
       "title": "Offers",

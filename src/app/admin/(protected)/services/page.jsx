@@ -131,13 +131,13 @@ export default function AdminServicesPage() {
       ),
     };
 
-    let snapshot;
+    // Rollback copy taken from the closure at dispatch time — see the
+    // matching comment in runAction on the appointments screen. Updaters
+    // must stay pure, so the pre-change list is captured here.
+    const snapshot = services;
     setActionError(null);
     setPending(true);
-    setServices((prev) => {
-      snapshot = prev;
-      return prev.map((s) => (s.id === service.id ? optimistic : s));
-    });
+    setServices((prev) => prev.map((s) => (s.id === service.id ? optimistic : s)));
 
     try {
       const updated = await updateService(service.id, {

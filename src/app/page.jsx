@@ -257,36 +257,44 @@ export default async function Home() {
             const specialty = pick(doctor, "specialty", locale);
             const bio = pick(doctor, "bio", locale);
             return (
-              <article
-                key={doctor.id}
-                className="flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-card transition-all duration-200 hover:border-border-strong hover:shadow-card-hover"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-brand-soft text-base font-semibold tracking-wide text-brand">
-                    {initials(name)}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="truncate text-base font-semibold tracking-tight text-fg">
-                      {name}
-                    </h3>
-                  </div>
-                </div>
+            <article
+            key={doctor.id}
+            className="flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-card transition-all duration-200 hover:border-border-strong hover:shadow-card-hover"
+            >
+            <div className="flex items-center gap-4">
+              {doctor.photo_url ? (
+                <img
+                  src={doctor.photo_url}
+                  alt={name}
+                  className="h-14 w-14 shrink-0 rounded-full object-cover"
+                />
+              ) : (
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-brand-soft text-base font-semibold tracking-wide text-brand">
+                  {initials(name)}
+                </span>
+              )}
+              <div className="min-w-0">
+                <h3 className="truncate text-base font-semibold tracking-tight text-fg">
+                  {name}
+                </h3>
+              </div>
+            </div>
 
-                {specialty && (
-                  <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-muted">
-                    <Icon name="user" size={13} className="text-brand" />
-                    {specialty}
-                  </span>
-                )}
+            {specialty && (
+              <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-muted">
+                <Icon name="user" size={13} className="text-brand" />
+                {specialty}
+              </span>
+            )}
 
-                {bio && (
-                  <p className="mt-4 text-sm leading-relaxed text-muted">
-                    {bio}
-                  </p>
-                )}
-              </article>
+            {bio && (
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                {bio}
+              </p>
+            )}
+            </article>
             );
-          })}
+            })}
         </div>
       </section>
 
@@ -311,7 +319,7 @@ export default async function Home() {
             className="mt-7 inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-brand-fg shadow-card transition-all hover:bg-brand-strong hover:shadow-card-hover"
           >
             <Icon name="phone" size={16} />
-            <bdi>+963 11 234 5678</bdi>
+            <bdi>+963 988 888 537</bdi>
           </a>
         </div>
       </section>

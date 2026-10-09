@@ -48,6 +48,12 @@ export default function AdminDashboardPage() {
             ...(user?.role === "manager"
               ? [
                   {
+                    href: "/admin/doctors",
+                    icon: "user",
+                    title: t("doctorsLink"),
+                    description: t("doctorsLinkDescription"),
+                  },
+                  {
                     href: "/admin/offers",
                     icon: "sparkles",
                     title: t("offersLink"),

@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Icon } from "@/components/Icon";
+import { ApiError } from "@/lib/api";
+import { uploadImage } from "@/lib/adminApi";
+import { pickRequired } from "@/lib/localized";
 
 /** Mirrors the varchar(255) the API stores it in; the field caps typing so a
  * long paste is obvious here rather than coming back as a 400. */
@@ -27,6 +30,10 @@ export function PhotoUrlField({
   compact = false,
 }) {
   const t = useTranslations("admin.photo");
+  const locale = useLocale();
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
   // Held as the URL that failed rather than a boolean, so editing the field
   // clears the warning on its own without an effect to reset it.
   const [brokenUrl, setBrokenUrl] = useState(null);
@@ -34,6 +41,27 @@ export function PhotoUrlField({
   const trimmed = value.trim();
   const isBroken = trimmed !== "" && trimmed === brokenUrl;
   const box = compact ? "h-10 w-10" : "h-14 w-14";
+
+  async function handleFileChange(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const { url } = await uploadImage(file);
+      onChange(url);
+    } catch (error) {
+      setUploadError(
+        error instanceof ApiError && error.code
+          ? pickRequired(error, "message", locale)
+          : t("uploadFailed"),
+      );
+    } finally {
+      setUploading(false);
+    }
+  }
 
   return (
     <div className={className}>
@@ -61,6 +89,9 @@ export function PhotoUrlField({
           {isBroken && (
             <p className="mt-1.5 text-xs text-accent">{t("brokenUrl")}</p>
           )}
+          {uploadError && (
+            <p className="mt-1.5 text-xs text-accent">{uploadError}</p>
+          )}
         </div>
 
         {trimmed && !isBroken ? (
@@ -81,6 +112,24 @@ export function PhotoUrlField({
             <Icon name="image" size={compact ? 14 : 18} />
           </div>
         )}
+      </div>
+      <div className="mt-2 flex items-center gap-2">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={handleFileChange}
+          className="sr-only"
+        />
+        <button
+          type="button"
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+          className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-fg transition-colors hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {uploading ? t("uploading") : t("upload")}
+        </button>
+        <span className="text-xs text-faint">{t("uploadHint")}</span>
       </div>
     </div>
   );
